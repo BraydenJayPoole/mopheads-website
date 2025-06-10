@@ -1,0 +1,35 @@
+<style>
+  .bento-grid {
+    display: grid;
+    grid-template-columns: 1fr repeat(2, 2fr) 1fr;
+    gap: 2.5rem;
+    max-width: 1250px;
+    margin: 2.5rem auto;
+  }
+
+  .bento-column {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+
+  .bento-item{
+    background-color: #f8eedd;
+    border-radius: 1.75rem;
+    border: 1px solid #cab48f;
+    box-shadow: var(--shadow-elevation-medium);
+  }
+
+
+  
+
+</style>
+
+<section class="bento-grid">
+
+  {{ partial "components/bento/columns/aside-left.html" . }}
+  {{ partial "components/bento/columns/feature-left.html" . }}
+  {{ partial "components/bento/columns/feature-right.html" . }}
+  {{ partial "components/bento/columns/aside-right.html" . }}
+
+</section>

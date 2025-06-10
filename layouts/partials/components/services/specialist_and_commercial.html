@@ -1,0 +1,31 @@
+{{/* layouts/partials/components/services/specialist_and_commercial.html - Sorting Before Range */}}
+<div class="service-layout__category-group">
+  <h3 class="service-layout__category-title">Specialist &amp; Commercial Services</h3>
+
+  {{ $categoryKey := "specialist_and_commercial" }}
+  {{ $servicesMap := .Site.Data.services.specialist_and_commercial }}
+
+  {{/* 1. Create an empty slice */}}
+  {{ $servicesSlice := slice }}
+
+  {{/* 2. Populate the slice, adding the original map key */}}
+  {{ range $serviceKey, $serviceData := $servicesMap }}
+      {{ $serviceEntry := merge $serviceData (dict "originalMapKey" $serviceKey) }}
+      {{ $servicesSlice = $servicesSlice | append $serviceEntry }}
+  {{ end }}
+
+  {{/* 3. Sort the slice by weight */}}
+  {{ $sortedServices := sort $servicesSlice "weight" }}
+
+  {{/* 4. Range over the SORTED SLICE */}}
+  {{ range $serviceData := $sortedServices }}
+      {{ $serviceKey := $serviceData.originalMapKey }}
+      {{ $uniqueKey := printf "%s_%s" $categoryKey (urlize $serviceKey) }}
+
+      <button type="button" class="service-layout__master-item" data-service-key="{{ $uniqueKey }}">
+          {{ $serviceData.type }}
+      </button>
+  {{ else }}
+      <p>No specialist or commercial services found.</p>
+  {{ end }} {{/* End range $sortedServices */}}
+</div>

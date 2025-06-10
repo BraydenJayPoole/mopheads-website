@@ -1,0 +1,121 @@
+<style>
+    .quote-form__button .dollar-sign {
+        font-size: 12px;
+        /* Optional: You might need to adjust vertical alignment slightly */
+        margin-left: 5px;
+        margin-bottom: 7px;
+      }
+
+      .price{
+        font-size: 1.5em;
+        margin-right: 5px;
+    }
+
+</style>
+
+<section class="cta-form">
+
+
+    <div>
+    
+<div class="quote-form-container">
+  <form id="quote-form" class="quote-form">
+    <div class="quote-form__group">
+      <label for="service-type" class="visually-hidden">Service Type:</label>
+      <select id="service-type" name="service" class="quote-form__select">
+        <option value="Domestic">Domestic</option>
+        <option value="Deep Clean">Deep Clean</option>
+        <option value="End-of-Lease">End-of-Lease</option>
+      </select>
+    </div>
+
+    <div class="quote-form__group">
+      <label for="bathrooms" class="visually-hidden">Bathrooms:</label>
+      <select id="bathrooms" name="bath" class="quote-form__select">
+        <option value="1">1 Bathroom</option> <option value="2">2 Bathrooms</option>
+        <option value="3">3 Bathrooms</option>
+        <option value="4">4+ Bathrooms</option> </select>
+    </div>
+
+    <div class="quote-form__group">
+      <label for="bedrooms" class="visually-hidden">Bedrooms:</label>
+      <select id="bedrooms" name="bed" class="quote-form__select">
+        <option value="1">1 Bedroom</option> <option value="2">2 Bedrooms</option>
+        <option value="3">3 Bedrooms</option>
+        <option value="4">4 Bedrooms</option>
+        <option value="5">5+ Bedrooms</option> </select>
+    </div>
+
+    <div class="quote-form__action">
+      <button type="button" id="quote-book-button" class="quote-form__button">
+        Book From... &rarr;
+      </button>
+      <span id="price-display" style="display: none;"></span>
+    </div>
+  </form>
+</div>
+<p class="quote-form-help"><a href="#help">Need Help Choosing a Clean Type?</a></p>
+
+</div>
+</section>
+
+<script>
+  // Embed pricing data from Hugo's data file
+  const pricingDataJSONString = {{ site.Data.pricing | jsonify }};
+  const pricingData = JSON.parse(pricingDataJSONString);
+
+  // Get references (IDs match the form above)
+  const serviceSelect = document.getElementById('service-type');
+  const bathSelect = document.getElementById('bathrooms');
+  const bedSelect = document.getElementById('bedrooms');
+  // Get reference to the button now
+  const quoteButton = document.getElementById('quote-book-button');
+  // Keep priceDisplay reference if you still want it hidden, otherwise remove
+  const priceDisplay = document.getElementById('price-display');
+
+
+  // Function to update the price **AND BUTTON TEXT**
+  function updatePrice() {
+    const serviceType = serviceSelect.value;
+    const baths = bathSelect.value;
+    const beds = bedSelect.value;
+    const priceKey = `${baths}-${beds}`;
+
+    console.log('Checking:', serviceType, 'Key:', priceKey, 'Data slice:', pricingData[serviceType]);
+
+    let price = null; // Use null to indicate not found
+
+    if (pricingData[serviceType] && pricingData[serviceType][priceKey]) {
+      price = pricingData[serviceType][priceKey];
+      // Update the button's text content
+      quoteButton.innerHTML = `Book From <span class="dollar-sign">$</span><span class="price">${price}</span> \u2192`; // \u2192 is the right arrow
+      // Optionally update the hidden span if needed elsewhere
+      if (priceDisplay) priceDisplay.textContent = price;
+    } else {
+      // Update button text when no price is found
+      quoteButton.textContent = "Get Quote \u2192";
+      if (priceDisplay) priceDisplay.textContent = "Quote Required";
+    }
+  }
+
+  // Add event listeners
+  serviceSelect.addEventListener('change', updatePrice);
+  bathSelect.addEventListener('change', updatePrice);
+  bedSelect.addEventListener('change', updatePrice);
+
+  // Initial price calculation on page load
+  if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', updatePrice);
+  } else {
+      updatePrice(); // Call immediately if DOM is already loaded
+  }
+
+  // Optional: Add functionality when the button is clicked
+  quoteButton.addEventListener('click', () => {
+    // Add logic here - e.g., redirect to a booking page, open a modal
+    console.log('Booking action triggered for:', serviceSelect.value, bathSelect.value, bedSelect.value);
+    // Example redirect (update URL as needed):
+    // window.location.href = '/booking';
+  });
+
+</script>

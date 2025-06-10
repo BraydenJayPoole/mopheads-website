@@ -1,0 +1,59 @@
+<div id="hero"> <canvas id="riveCanvas"></canvas> </div>
+
+<script>
+  // Wrap everything in an IIFE
+  (function() {
+    // --- All your existing script logic goes inside here ---
+
+    document.addEventListener('DOMContentLoaded', function() {
+      // Use the specific canvas ID for this component
+      const canvasId = 'riveCanvas'; // e.g., 'riveCanvas' or 'mopheadsLogoText'
+      const riveCanvas = document.getElementById(canvasId);
+
+      // Ensure canvas exists before proceeding
+      if (!riveCanvas) {
+        console.error('Rive canvas element not found:', canvasId);
+        return;
+      }
+
+      const r = new rive.Rive({
+        // Use the specific source file for this component
+        src: '/mopheads_landing_page_demo.riv', // e.g., 'rive_landing_page_demo.riv' or 'mopheads_logo_text.riv'
+        canvas: riveCanvas,
+        autoplay: true,
+        // Use specific state machines if needed, otherwise remove or adjust
+        stateMachines: 'SM1', // Make sure this is correct for each animation
+        layout: new rive.Layout({
+          fit: rive.Fit.Cover, // Or Fit.Contain, etc.
+          alignment: rive.Alignment.Center,
+        }),
+        onLoad: (_) => {
+          // Call the computeSize function defined *within this scope*
+          computeSize();
+          const inputs = r.stateMachineInputs('SM1');
+          // Input handling specific to this instance (if needed)
+          // Example: Adjust based on your actual input names
+          // const inputs = r.stateMachineInputs('SM1');
+          // const bubbleTrigger = inputs.find(i => i.name === 'bubbleTrigger');
+        },
+      });
+
+      // This function is now local to this IIFE's scope
+      function computeSize() {
+        // 'r' here refers to the Rive instance created *within this scope*
+        r.resizeDrawingSurfaceToCanvas();
+      }
+
+      // Attach listeners - they will call the computeSize defined *within this scope*
+      window.addEventListener('resize', computeSize);
+      // Optional: Debounce resize events for performance if needed
+      // Consider removing the matchMedia listener if resize is sufficient,
+      // unless you specifically need to react to pixel density changes.
+      window
+        .matchMedia(`(resolution: ${window.devicePixelRatio}dppx)`)
+        .addEventListener('change', computeSize, { once: true }); // Use once: true if you only need it once per density change
+
+    }); // End DOMContentLoaded listener
+
+  })(); // Immediately invoke the function expression
+</script>

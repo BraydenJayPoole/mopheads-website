@@ -1,0 +1,64 @@
+{{/* layouts/partials/components/services/category-section.html */}}
+{{ $categoryKey := .categoryKey }}
+{{ $categoryName := .categoryName }}
+{{ $servicesMap := .servicesMap }}
+{{ $sectionId := printf "service-section-%s" $categoryKey }}
+
+<section class="full-height-section {{ $categoryKey }}" id="{{ $sectionId }}">
+    <div class="service-layout">
+        <div class="service-layout__master">
+            <div class="service-layout__category-group">
+                <h3 class="service-layout__category-title">{{ $categoryName }}</h3>
+                {{ $servicesSlice := slice }}
+                {{ range $serviceKey, $serviceData := $servicesMap }}
+                    {{ $serviceEntry := merge $serviceData (dict "originalMapKey" $serviceKey) }}
+                    {{ $servicesSlice = $servicesSlice | append $serviceEntry }}
+                {{ end }}
+                {{ $sortedServices := sort $servicesSlice "weight" }}
+
+                {{ range $serviceData := $sortedServices }}
+                    {{ $serviceKey := $serviceData.originalMapKey }}
+                    {{ $uniqueKey := printf "%s_%s" $categoryKey (urlize $serviceKey) }}
+                    <button type="button" class="service-layout__master-item" data-service-key="{{ $uniqueKey }}">
+                        {{ $serviceData.type }}
+                    </button>
+                {{ else }}
+                    <p>No services found in this category.</p>
+                {{ end }}
+            </div>
+        </div>
+        <div class="service-layout__detail">
+            <div class="service-layout__detail-content" id="service-detail-content-{{ $categoryKey }}">
+                 <p class="service-layout__detail-placeholder">Please select a service from the list to see details.</p>
+            </div>
+        </div>
+
+        {{ $sectionServices := dict }}
+        {{ range $serviceKey, $serviceData := $servicesMap }}
+             {{ $uniqueKey := printf "%s_%s" $categoryKey (urlize $serviceKey) }}
+             {{ $sectionServices = merge $sectionServices (dict $uniqueKey $serviceData) }}
+        {{ end }}
+        <script id="services-data-{{ $categoryKey }}" type="application/json">
+            {{ $sectionServices | jsonify }}
+        </script>
+    </div>
+</section>
+
+{{/* JavaScript is usually placed in baseof.html or a separate JS file,
+     but for self-contained components in Hugo, sometimes it's included like this.
+     If this script block is identical for all service-category-sections,
+     consider moving the generic part to a single script file loaded once.
+     For now, assuming it's scoped per section as previously implemented.
+     The following script will be PART of the category-section.html partial.
+     If you have a global script, you'll need to adapt the event listeners.
+     This example assumes the script part needs to be in THIS partial,
+     and will be repeated if you have multiple such sections.
+     A better approach would be a single script that handles all sections.
+     For simplicity here, I'll keep the existing structure of the JS being per-section,
+     but it's not ideal if you have many such sections.
+     Revisiting the previous script logic, the JS IS global and handles multiple sections.
+     The update will be in that global JS.
+     So, the JS below should replace the script block from your PREVIOUS iteration
+     (likely at the bottom of your baseof.html or a global JS file).
+     I will provide the FULL script block here.
+*/}}

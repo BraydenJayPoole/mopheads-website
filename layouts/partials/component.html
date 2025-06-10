@@ -1,0 +1,18 @@
+{{/* layouts/partials/component.html */}}
+{{- $componentName := .name -}}
+{{- $context := .context -}} 
+
+{{/* Extract the filename without extension */}}
+{{- $baseName := path.Base $componentName -}}
+{{- $baseName = strings.TrimSuffix ".html" $baseName -}}
+{{- if (strings.HasSuffix ".html" $componentName) -}}
+<p>DEBUG: Component being added: {{ $componentName }}</p>
+  {{- $baseName = strings.TrimSuffix ".html" $baseName -}}
+{{- else -}}
+  {{- $baseName = strings.TrimSuffix ".css" $baseName -}}
+{{- end -}}
+{{/* Add the base name to the page's Store */}}
+{{- .context.Store.Add "components" (slice $baseName) -}}
+
+{{/* Call the actual partial */}}
+{{- partial $componentName $context -}}  

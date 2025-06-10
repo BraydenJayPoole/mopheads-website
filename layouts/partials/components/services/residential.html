@@ -1,0 +1,38 @@
+{{/* layouts/partials/components/services/residential.html - Sorting Before Range */}}
+<div class="service-layout__category-group">
+    <h3 class="service-layout__category-title">Residential Services</h3>
+
+    {{ $categoryKey := "residential" }}
+    {{ $servicesMap := .Site.Data.services.residential }}
+
+    {{/* 1. Create an empty slice to hold sortable service data */}}
+    {{ $servicesSlice := slice }}
+
+    {{/* 2. Iterate over the original map to populate the slice */}}
+    {{ range $serviceKey, $serviceData := $servicesMap }}
+        {{/* Create a new map/dict containing original data PLUS the original map key */}}
+        {{ $serviceEntry := merge $serviceData (dict "originalMapKey" $serviceKey) }}
+        {{/* Add this enhanced map to the slice */}}
+        {{ $servicesSlice = $servicesSlice | append $serviceEntry }}
+    {{ end }}
+
+    {{/* 3. Sort the slice based on the 'weight' field */}}
+    {{ $sortedServices := sort $servicesSlice "weight" }}
+
+    {{/* 4. Now range over the SORTED SLICE */}}
+    {{ range $serviceData := $sortedServices }}
+        {{/* Retrieve the original map key that we stored */}}
+        {{ $serviceKey := $serviceData.originalMapKey }}
+
+        {{/* Construct the unique key using the retrieved original map key */}}
+        {{ $uniqueKey := printf "%s_%s" $categoryKey (urlize $serviceKey) }}
+
+        {{/* Debug comment (optional but recommended for verification) */}}
+        <button type="button" class="service-layout__master-item" data-service-key="{{ $uniqueKey }}">
+            {{ $serviceData.type }}
+             {{/* (DEBUG KEY: {{ $uniqueKey }}) */}} {{/* Can remove this text now if desired */}}
+        </button>
+    {{ else }}
+        <p>No residential services found.</p>
+    {{ end }} {{/* End range $sortedServices */}}
+</div>

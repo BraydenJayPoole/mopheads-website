@@ -1,0 +1,30 @@
+{{/* layouts/partials/components/services/list.html */}}
+<section class="service-layout">
+    <div class="service-layout__master">
+        {{ partial "components/services/residential.html" . }}
+        {{ partial "components/services/specialist_and_commercial.html" . }}
+        {{ partial "components/services/outdoor.html" . }}
+    </div>
+    <div class="service-layout__detail">
+        <div class="service-layout__detail-content" id="service-detail-content">
+             <p class="service-layout__detail-placeholder">Please select a service from the list to see details.</p>
+        </div>
+    </div>
+
+    {{/* Store service data as JSON for JavaScript access */}}
+    {{ $allServices := dict }}
+    {{ range $categoryKey, $categoryData := .Site.Data.services }}
+        {{ range $serviceKey, $serviceData := $categoryData }}
+            {{ $uniqueKey := printf "%s_%s" $categoryKey (urlize $serviceKey) }}
+            {{ $allServices = merge $allServices (dict $uniqueKey $serviceData) }}
+        {{ end }}
+    {{ end }}
+
+    {{/* --- DEBUG LOG (Hugo Console) --- */}}
+    {{ warnf "[DEBUG list.html] $allServices map structure: %v" $allServices }}
+    {{/* --- END DEBUG LOG --- */}}
+
+    <script id="services-data" type="application/json">
+        {{ $allServices | jsonify }}
+    </script>
+</section>

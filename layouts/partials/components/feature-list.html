@@ -1,0 +1,9 @@
+<section class="feature-list">
+
+  {{ partial "components/feature-item.html" (index .Site.Data.features "domestic") }}
+  {{ partial "components/feature-item.html" (index .Site.Data.features "commercial") }}
+  {{ partial "components/feature-item.html" (index .Site.Data.features "endOfLease") }}
+  {{ partial "components/feature-item.html" (index .Site.Data.features "lawnMowing") }}
+
+
+</section>

@@ -1,0 +1,56 @@
+{{/* layouts/partials/metadata/meta.html */}}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ .Title }} | {{ .Site.Title }}</title>
+<meta name="description" content="{{ .Site.Params.description }}">
+
+<script src="https://unpkg.com/@rive-app/canvas@latest"></script>
+
+{{/* --- Hugo Pipes CSS Bundling (Bundle ALL Components) --- */}}
+
+{{ $cssResources := slice }}
+
+{{/* Get base styles */}}
+{{ $baseCSS := resources.Get "css/style.css" }} {{/* Path relative to assets */}}
+{{ if $baseCSS }}
+  {{ $cssResources = $cssResources | append $baseCSS }}
+{{ else }}
+  {{ warnf "Base CSS not found at assets/css/style.css" }}
+{{ end }}
+
+{{/* Get ALL component styles from assets/css/components/ */}}
+{{/* Make sure the path matches your structure exactly */}}
+{{ $componentCSS := resources.Match "css/components/**.css" }}
+{{ if $componentCSS }}
+    {{ $cssResources = $cssResources | append $componentCSS }}
+{{ else }}
+    {{ warnf "No component CSS files found matching assets/css/components/**.css" }}
+{{ end }}
+
+
+{{/* Process ALL collected CSS resources through PostCSS, then Minify/Fingerprint */}}
+{{ if gt (len $cssResources) 0 }}
+    {{/* Target path for the final bundle */}}
+    {{ $targetPath := "css/bundle.css" }} 
+    
+    {{/* Concatenate first */}}
+    {{ $bundle := $cssResources | resources.Concat $targetPath }}
+
+    {{/* Process the concatenated bundle with PostCSS */}}
+    {{/* css.PostCSS uses the config from hugo.toml by default */}}
+    {{ $bundle = $bundle | css.PostCSS }} 
+
+    {{/* Minify and Fingerprint for Production */}}
+    {{ if hugo.IsProduction }}
+        {{ $bundle = $bundle | minify | fingerprint }}
+    {{ else }}
+         {{/* Only Fingerprint for Development (easier debugging) */}}
+        {{ $bundle = $bundle | fingerprint }}
+    {{ end }}
+
+    {{/* Link the final bundle */}}
+    <link rel="stylesheet" href="{{ $bundle.RelPermalink }}" {{ if hugo.IsProduction }}integrity="{{ $bundle.Data.Integrity }}"{{ end }} media="screen">
+{{ else }}
+    {{ warnf "No CSS resources found to bundle for page: %s" .Permalink }}
+{{ end }}
+{{/* --- End Hugo Pipes CSS Bundling --- */}}

@@ -1,0 +1,13 @@
+.feature-list{
+    display: grid;
+    align-self: center;
+    justify-self: center;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.feature-item{
+    border: solid 4px #000;
+    background-color: #77B6EA;
+    border-radius: 2rem;
+}

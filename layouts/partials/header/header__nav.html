@@ -1,0 +1,24 @@
+<nav class="header__nav">
+  <ul class="header__nav-list">
+    {{ $currentPage := . }}
+    {{ range .Site.Menus.main }}
+      {{ $isParent := .HasChildren }}
+      {{/* Add 'has-children' class for easier targeting */}}
+      <li class="header__nav-item {{ if $isParent }}has-children{{ end }} {{ if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) }}active{{ end }}">
+        <a href="{{ .URL }}" class="header__nav-link">{{ .Name }}</a>
+        {{/* Add a dropdown toggle button, styled via CSS to only show/work on mobile */}}
+        {{ if $isParent }}
+          <button class="header__nav-submenu-toggle" aria-label="Toggle submenu for {{ .Name }}" aria-expanded="false">
+            <span class="toggle-icon"></span> </button>
+          <ul class="header__nav-sublist">
+            {{ range .Children }}
+              <li class="header__nav-subitem {{ if $currentPage.IsMenuCurrent "main" . }}active{{ end }}">
+                <a href="{{ .URL }}" class="header__nav-link">{{ .Name }}</a>
+              </li>
+            {{ end }}
+          </ul>
+        {{ end }}
+      </li>
+    {{ end }}
+  </ul>
+</nav>

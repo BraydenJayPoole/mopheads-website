@@ -1,0 +1,18 @@
+{{/* layouts/partials/components/services/wrapper.html - Reverted */}}
+{{ with . }}
+    {{ with .overview }}
+        <p><strong>Overview:</strong> {{ . }}</p>
+    {{ end }}
+    {{ with .schedule_options }}
+        <p><strong>Schedule:</strong> {{ . }}</p>
+    {{ end }}
+    {{ with .inclusions }}
+        <p><strong>Includes:</strong> {{ . }}</p> {{/* Could potentially format this better if it's list data */}}
+    {{ end }}
+    {{ with .pricing }}
+        <p><strong>Pricing:</strong> {{ . }}</p>
+    {{ end }}
+    {{/* Add any other fields you want to display */}}
+{{ else }}
+  <p>Select a service to see the details.</p>
+{{ end }}

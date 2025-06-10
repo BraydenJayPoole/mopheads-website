@@ -1,0 +1,131 @@
+<header class="header">
+  <div class="content-wrapper content-wrapper--three-columns">
+    {{ partial "header/header__logo.html" . }}
+
+    <div class="header__desktop-nav-container">
+      {{ partial "header/header__nav.html" . }}
+    </div>
+    <div class="header__desktop-cta-container">
+         {{ partial "header/header__cta.html" . }}
+    </div>
+
+
+    <button class="header__hamburger-button" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobileNav">
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+    </button>
+
+  </div>
+
+  <div class="header__mobile-nav" id="mobileNav">
+    {{ partial "header/header__nav.html" . }}
+     </div>
+
+     <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        // REMOVED: const header = document.querySelector('.header');
+        const hamburgerButton = document.querySelector('.header__hamburger-button');
+        const mobileNav = document.getElementById('mobileNav');
+        const breakpoint = 980; // Define breakpoint
+  
+        // --- Helper Functions ---
+        function closeMobileMenu() {
+            if (mobileNav && hamburgerButton) {
+                mobileNav.classList.remove('is-active');
+                hamburgerButton.classList.remove('is-active');
+                hamburgerButton.setAttribute('aria-expanded', 'false');
+                mobileNav.querySelectorAll('.header__nav-item.is-open').forEach(item => {
+                    item.classList.remove('is-open');
+                    const toggle = item.querySelector('.header__nav-submenu-toggle');
+                    if (toggle) {
+                        toggle.setAttribute('aria-expanded', 'false');
+                    }
+                });
+            }
+        }
+  
+        function openMobileMenu() {
+             if (mobileNav && hamburgerButton) {
+                 mobileNav.classList.add('is-active');
+                 hamburgerButton.classList.add('is-active');
+                 hamburgerButton.setAttribute('aria-expanded', 'true');
+             }
+        }
+  
+        // --- Initialization Check ---
+        if (hamburgerButton && mobileNav) {
+  
+          // --- Hamburger Toggle ---
+          hamburgerButton.addEventListener('click', (event) => {
+            event.stopPropagation(); // Prevent click from immediately closing menu via document listener
+            const isActive = mobileNav.classList.contains('is-active');
+            if (isActive) {
+                closeMobileMenu();
+            } else {
+                openMobileMenu();
+            }
+          });
+  
+          // --- Prevent clicks inside mobile nav from closing it ---
+          mobileNav.addEventListener('click', (event) => {
+              event.stopPropagation(); // Stop clicks inside the nav from bubbling up to the document
+          });
+  
+          // --- Submenu Toggle Button Logic ---
+          const submenuToggles = mobileNav.querySelectorAll('.header__nav-submenu-toggle');
+          submenuToggles.forEach(toggle => {
+            toggle.addEventListener('click', (event) => {
+               event.stopPropagation(); // Prevent click from closing menu via document listener
+              const parentItem = toggle.closest('.header__nav-item');
+              if (parentItem) {
+                  const isOpen = parentItem.classList.contains('is-open');
+                  parentItem.classList.toggle('is-open');
+                  toggle.setAttribute('aria-expanded', !isOpen);
+              }
+            });
+          });
+  
+          // --- Parent Link Click Logic for Mobile ---
+          const parentLinks = mobileNav.querySelectorAll('.has-children > .header__nav-link');
+          parentLinks.forEach(link => {
+              link.addEventListener('click', (event) => {
+                  if (window.innerWidth <= breakpoint) {
+                     const toggleButton = link.nextElementSibling;
+                     if (toggleButton && toggleButton.classList.contains('header__nav-submenu-toggle')) {
+                         event.preventDefault();
+                         event.stopPropagation(); // Prevent click from closing menu via document listener
+                         toggleButton.click();
+                     }
+                  }
+                  // No stopPropagation here, allow navigation on desktop or if no toggle exists
+              });
+          });
+  
+           // --- NEW: Close menu when clicking outside ---
+           document.addEventListener('click', (event) => {
+               // Check if the menu is active and the click was not on the button
+               if (mobileNav.classList.contains('is-active') && !hamburgerButton.contains(event.target)) {
+                  // We already stopped propagation for clicks *inside* the mobileNav,
+                  // so any click reaching here while the menu is active must be outside.
+                  closeMobileMenu();
+               }
+           });
+  
+  
+          // --- Resize Listener ---
+          window.addEventListener('resize', () => {
+            window.requestAnimationFrame(() => {
+              if (window.innerWidth > breakpoint && mobileNav.classList.contains('is-active')) {
+                  closeMobileMenu();
+              }
+            });
+          });
+  
+        } else {
+          if (!hamburgerButton) console.error('Hamburger button (.header__hamburger-button) not found.');
+          if (!mobileNav) console.error('Mobile nav element (#mobileNav) not found.');
+        }
+      });
+    </script>
+</header>

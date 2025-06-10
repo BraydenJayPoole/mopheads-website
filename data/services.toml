@@ -1,0 +1,60 @@
+# services.toml - Data file for cleaning service categories and details
+
+# Residential Services Category
+[residential.domestic]
+type = "Domestic"
+overview = "General house cleaning for occupied homes."
+schedule_options = "Weekly, bi-weekly, monthly, or one-off options available."
+inclusions = "Standard tasks: dusting, vacuuming, mopping, bathrooms, kitchen surfaces."
+pricing = "Typically hourly rate or fixed price based on home size/condition. Provide details here."
+weight = 1
+
+[residential.deep_clean]
+type = "Deep Clean"
+overview = "Intensive cleaning targeting built-up grime and hard-to-reach areas."
+schedule_options = "Usually one-off, recommended seasonally or before/after events."
+inclusions = "Includes standard tasks plus inside ovens, fridges, window tracks, baseboards, etc."
+pricing = "Higher rate than domestic, often fixed price based on scope. Provide details here."
+weight = 2
+
+[residential.end_of_lease]
+type = "End-of-Lease"
+overview = "Comprehensive clean required by landlords/agents when vacating a rental property."
+schedule_options = "One-off service scheduled after moving out, before final inspection."
+inclusions = "Detailed checklist often provided by agent, covers everything top-to-bottom."
+pricing = "Fixed price based on property size and specific requirements (e.g., carpet cleaning). Provide details here."
+weight = 3
+
+[residential.airbnb]
+type = "AirBnB"
+overview = "Turnaround cleaning service for short-term rental properties between guests."
+schedule_options = "Scheduled based on booking calendar, often requires quick turnaround."
+inclusions = "Cleaning, linen change, restocking amenities, property check."
+pricing = "Typically fixed price per turnover based on property size/bedrooms. Provide details here."
+weight = 4
+
+
+# Specialist_and_Commercial Services Category
+[specialist_and_commercial.commercial]
+type = "Commercial"
+overview = "Cleaning services tailored for business premises like offices, retail spaces, etc."
+schedule_options = "Contract-based, often daily, weekly, or multiple times per week. After-hours available."
+inclusions = "Customisable based on contract: general cleaning, restrooms, kitchenettes, waste removal."
+weight = 1
+
+[specialist_and_commercial.ndis]
+type = "NDIS"
+overview = "Cleaning services provided to NDIS participants as part of their plan."
+schedule_options = "Aligned with participant's NDIS plan and support schedule."
+inclusions = "Tasks focused on maintaining a safe and healthy home environment, as per NDIS guidelines."
+weight = 2
+
+
+# Outdoor Services Category
+[outdoor.lawn_mowing]
+type = "Lawn Mowing"
+overview = "Basic lawn mowing and maintenance services."
+schedule_options = "Regular (e.g., fortnightly during growing season) or on-demand."
+inclusions = "Mowing, edge trimming, blowing paths/driveways clear of clippings."
+weight = 1
+

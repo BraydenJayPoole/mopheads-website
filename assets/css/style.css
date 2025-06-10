@@ -1,0 +1,754 @@
+:root {
+  --old-lace: #F8F0E3;
+  --cinnabar: #DA5537;
+  --space-cadet: #202C59;
+  --myrtle-green: #297373;
+  --smoky-black: #0F0A0A;
+
+  --shadow-color: 39deg 36% 62%;
+  --shadow-elevation-low:
+    0.3px 0.3px 0.5px hsl(var(--shadow-color) / 0.16),
+    0.5px 0.5px 0.9px -0.8px hsl(var(--shadow-color) / 0.22),
+    1.1px 1.1px 2px -1.6px hsl(var(--shadow-color) / 0.28);
+  --shadow-elevation-medium:
+    0.3px 0.3px 0.5px hsl(var(--shadow-color) / 0.13),
+    0.9px 0.9px 1.6px -0.4px hsl(var(--shadow-color) / 0.16),
+    1.6px 1.7px 2.9px -0.8px hsl(var(--shadow-color) / 0.19),
+    2.9px 3.1px 5.3px -1.2px hsl(var(--shadow-color) / 0.22),
+    5.4px 5.6px 9.8px -1.6px hsl(var(--shadow-color) / 0.25);
+  --shadow-elevation-high:
+    0.3px 0.3px 0.5px hsl(var(--shadow-color) / 0.12),
+    1.5px 1.5px 2.7px -0.2px hsl(var(--shadow-color) / 0.14),
+    2.5px 2.6px 4.5px -0.4px hsl(var(--shadow-color) / 0.15),
+    3.7px 3.9px 6.8px -0.5px hsl(var(--shadow-color) / 0.17),
+    5.1px 5.3px 9.3px -0.7px hsl(var(--shadow-color) / 0.18),
+    6.9px 7.3px 12.7px -0.9px hsl(var(--shadow-color) / 0.19),
+    9.4px 9.9px 17.2px -1.1px hsl(var(--shadow-color) / 0.21),
+    12.8px 13.4px 23.3px -1.2px hsl(var(--shadow-color) / 0.22),
+    17.1px 18px 31.3px -1.4px hsl(var(--shadow-color) / 0.24),
+    22.6px 23.8px 41.4px -1.6px hsl(var(--shadow-color) / 0.25);
+
+}
+
+html{
+  font-size: 16px;
+}
+
+h1{
+  font-size: 5.61rem;
+  color: var(--cinnabar);
+  font-family: "cooperBlack", sans-serif;
+}
+
+h2{
+  font-size: 2.488rem;
+}
+
+h3{
+  font-size: 2.074rem;
+}
+
+h4{
+  font-size: 1.728rem;
+}
+
+h5{
+  font-size: 1.44rem;
+}
+
+h6{
+  font-size: 1.2rem;
+}
+
+p{
+  font-size: 1rem;
+} 
+
+small{
+  font-size: 0.833rem;
+} 
+
+@font-face {
+  font-family: "cooperBlack";
+  src: url("/fonts/COOPBL.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Roboto";
+  src: url("/fonts/Roboto-Regular.ttf") format("truetype");
+}
+
+body {
+    background-color: #f8e4c1;
+    color: var(--smoky-black);
+    font-family: "Roboto", sans-serif;
+    margin: 0;
+    line-height: 1.6;
+    font-display: swap;
+    overflow-x: hidden;
+  }
+
+.landing{
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+  /* background-color: #f8e4c1; */
+  max-width: 1920px;
+  width: 100%;
+  height: 100vh;
+}
+
+
+
+.landing h1{
+    /* Sets font-size: Min 3rem, Preferred 4vw + 2rem, Max 5.61rem */
+    font-size: clamp(3rem, 4vw + 2rem, 5.61rem);
+  line-height: 0;
+  align-self: end;
+  justify-self: center;
+}
+
+
+.cta{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: #73281d;
+}
+
+.cta__button{
+  background-color: #F07147;
+  color: var(--old-lace);
+  border: none;
+  padding: 0.7rem 1.2rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.landing .cta{
+  grid-area: 4 / 2 / 6 / 4;
+}
+
+
+  #riveCanvas {
+    background-color: #F8F0E3;
+    display: block;
+    position: relative;
+    top: 0;
+    width: 100%;
+    height: 150vh;
+    border-radius: 1rem;
+    z-index: -1;
+    }
+
+  #mopheads__logo_text {
+    display: flex;
+    justify-self: center;
+    align-self: end;
+    width: 80%;
+    max-width: 800px;
+    max-height: 192px;
+    z-index: 1;
+    }
+
+    #mopheadsLogoText {
+      width: 100%;
+      }
+
+.border{
+  position: fixed;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  border-radius: 2rem;
+  box-shadow: inset 0 0 0 1rem #f8e4c1,
+              0 0 0 1rem #f8e4c1; 
+  overflow: hidden; 
+}
+
+  .viewport {
+    position: absolute;
+    top: 1rem;
+    bottom: 1rem;
+    left: 1rem;
+    right: 1rem;
+    border-radius: 2rem;
+  }
+  
+  h2, h3, h4, h5, h6 {
+    color: var(--smoky-black);
+  }
+  
+  p {
+    margin: 0 0 1em;
+  }
+  
+  .header {
+    position: fixed;
+    width: 100%;
+    z-index: 1;
+    display: grid;
+    grid-template-rows: auto auto;
+    align-items: center;
+    z-index: 11;
+  }
+  
+  .content-wrapper {
+    padding: 0 2rem;
+    align-items: center;
+  }
+  
+  .content-wrapper--three-columns {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 2rem;
+  }
+  
+  .header__sub-nav {
+    background-color: var(--cinnabar);
+    padding: 0 2rem;
+  }
+  
+  .header__sub-nav-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: .1rem;
+    justify-self: end;
+  }
+  
+  .header__sub-nav-link {
+    text-decoration: none;
+    color: var(--old-lace);
+    font-weight: 500;
+    display: block;
+    padding: 0 1rem;
+  }
+
+  .header__sub-nav-item {
+    position: relative;
+  }
+
+  .header__sub-nav-item.active > .header__sub-nav-link, /* Active top-level link */
+  .header__sub-nav-subitem.active > .header__sub-nav-link { /* Active sub-menu link */
+    font-weight: bold;
+    color: #da5537;
+    background-color: var(--old-lace);
+  }
+
+  .header__sub-nav-sublist {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: var(--old-lace);
+    border: 1px solid #ccc;
+    padding: 0.5rem 0;
+    list-style: none;
+    margin: 0;
+    min-width: 150px;
+    z-index: 10;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  }
+  
+  .header__sub-nav-subitem {
+    padding: 0.5rem 1rem;
+  }
+  
+  .header__sub-nav-subitem a {
+    display: block;
+  }
+  
+  .header__sub-nav-sublist li:hover {
+    background-color: var(--old-lace);
+  }
+  
+  .header__sub-nav-item:hover .header__sub-nav-sublist {
+    display: block;
+  }
+  
+  .header__logo {
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: var(--cinnabar);
+  }
+  
+  .header__nav {
+    justify-self: end;
+    justify-content: center;
+    border-radius: 20px;
+    margin: 10px;
+    padding: 1rem 2rem;
+  }
+  
+  .header__cta {
+    text-align: right;
+  }
+  
+  .header__cta-button {
+    background-color: #F07147;
+    color: var(--old-lace);
+    border: none;
+    padding: 0.7rem 1.2rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+  }
+  
+  /* Navigation styles (Corrected Active Link Styling) */
+  .header__nav-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 2rem;
+  }
+  
+  .header__nav-item {
+    position: relative;
+  }
+  
+  .header__nav-link {
+    text-decoration: none;
+    color: #73281D;
+    font-weight: semibold;
+    display: block;
+    padding: 0.5rem 1rem;
+  }
+  
+  .header__nav-item.active > .header__nav-link, /* Active top-level link */
+  .header__nav-subitem.active > .header__nav-link { /* Active sub-menu link */
+    font-weight: bold;
+  }
+  
+  .header__nav-sublist {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: var(--old-lace);
+    border: 1px solid #ccc;
+    padding: 0.5rem 0;
+    list-style: none;
+    margin: 0;
+    min-width: 150px;
+    z-index: 10;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  }
+  
+  .header__nav-subitem {
+    padding: 0.5rem 1rem;
+  }
+  
+  .header__nav-subitem a {
+    display: block;
+  }
+  
+  .header__nav-sublist li:hover {
+    background-color: var(--old-lace);
+  }
+  
+  .header__nav-item:hover .header__nav-sublist {
+    display: block;
+  }
+
+  .hero__top{
+    position: relative;
+    display: flex;
+    height: 100vh;
+    width: 100%;
+    top: 30%;
+  }
+
+  .hero__top__content {
+    display: flex;
+    flex: auto;
+    border: none;
+    scale: 1000%;
+    translate: 0 10%;
+  }
+
+  .hero__bottom{
+    position: relative;
+    display: flex;
+    overflow: hidden;
+    height: 40vh;
+    width: 100%;
+    bottom: 0;
+    right: 0;
+    background-color: #EEC89C;
+  }
+
+  .hero__bottom__content {
+    display: flex;
+    align-self: baseline;
+    border: none;
+    flex: auto;
+    transform-origin: top;
+    scale: 1000%;
+  }
+
+
+  .hero__contents{
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    top: 85%;
+  }
+
+  .hero__contents_logo{
+    scale: 6;
+  }
+
+  .banner{
+    position: absolute;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    padding-right: 20%;
+    top: 0; 
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+  }
+
+/* assets/css/style.css */
+/* ... existing styles ... */
+
+/* --- Hamburger Menu Styles --- */
+
+/* Container for desktop nav elements (to hide on mobile) */
+.header__desktop-nav-container,
+.header__desktop-cta-container {
+  display: block; /* Shown by default */
+}
+
+
+.header__hamburger-button {
+  display: none;
+  background-color: var(--old-lace);
+  border: 1px solid var(--old-lace);
+  border-radius: 8px;
+  cursor: pointer;
+  padding: 5px;
+  z-index: 1001;
+  align-self: center;
+  justify-self: end;
+  grid-column: 3 / 4;
+  position: relative;
+  width: 40px;
+  height: 40px;
+  box-shadow: var(--shadow-elevation-low);
+  transition: background-color 0.2s ease;
+}
+
+.header__hamburger-button:hover {
+  background-color: #fff; /* Slightly whiter on hover */
+}
+
+
+.header__hamburger-button .hamburger-line {
+  display: block;
+  /* --- Adjust these values --- */
+  width: 12px;  /* Make lines shorter */
+  height: 2px;  /* Keep height or make slightly thinner if desired */
+  background-color: var(--cinnabar);
+  margin: 3px auto; /* Keep vertical margin for spacing */
+  /* --- End Adjustments --- */
+  transition: all 0.3s ease-in-out;
+  transform-origin: center;
+}
+
+
+.header__mobile-nav {
+  /* display: none; */ /* We control visibility with opacity/pointer-events now */
+  display: flex; /* Keep it flex for content alignment */
+  position: absolute; /* Position relative to the fixed header */
+  top: 100%; /* Position it right below the header */
+  left: 0;
+  right: 0; /* Make it full width */
+  width: 100%;
+  max-height: calc(100vh - 60px); /* Example: Max height minus approx header height */
+  background-color: var(--old-lace); /* Use theme background */
+  padding: 1rem 1.5rem 2rem; /* Adjust padding */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Shadow below */
+  z-index: 1000;
+  flex-direction: column;
+  align-items: flex-start;
+  overflow-y: auto; /* Allow scrolling */
+
+  /* --- Animation --- */
+  opacity: 0; /* Start hidden */
+  visibility: hidden; /* Use visibility for accessibility */
+  transform: translateY(-10px); /* Start slightly above */
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out, visibility 0.3s; /* Animate opacity, transform, and visibility */
+  pointer-events: none; /* Prevent interaction when hidden */
+}
+
+.header__mobile-nav.is-active {
+  /* display: flex; */ /* No longer needed */
+  opacity: 1; /* Fade in */
+  visibility: visible; /* Make visible */
+  transform: translateY(0); /* Drop down to final position */
+  pointer-events: auto; /* Allow interaction when visible */
+}
+
+
+/* --- Mobile Nav Specific Styles --- */
+/* These should remain largely the same, but ensure they work with the new layout */
+.header__mobile-nav .header__nav {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    justify-self: flex-start;
+}
+
+.header__mobile-nav .header__nav-list {
+  /* Styles should be okay */
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.header__mobile-nav .header__nav-item {
+  /* Styles should be okay */
+  width: 100%;
+  position: relative;
+}
+
+.header__mobile-nav .header__nav-link {
+  /* Styles should be okay */
+  display: block;
+  padding: 0.75rem 0;
+  color: var(--smoky-black);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+.header__mobile-nav .header__nav-link:hover {
+    color: var(--cinnabar);
+}
+
+.header__mobile-nav .header__nav-item.active > .header__nav-link {
+    font-weight: bold;
+    color: var(--cinnabar);
+}
+
+/* Mobile Sublist adjustments */
+.header__mobile-nav .header__nav-sublist {
+  /* Styles should be okay */
+  display: block !important;
+  position: static;
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0.25rem 0 0.5rem 1rem;
+  margin: 0;
+  min-width: auto;
+  list-style: none;
+  opacity: 1 !important;
+  visibility: visible !important;
+  width: 100%;
+  height: auto;
+}
+
+.header__mobile-nav .header__nav-subitem {
+    padding: 0;
+}
+
+.header__mobile-nav .header__nav-subitem a {
+    /* Styles should be okay */
+    display: block;
+    color: var(--smoky-black);
+    padding: 0.5rem 0;
+    font-weight: normal;
+}
+.header__mobile-nav .header__nav-subitem a:hover {
+    color: var(--cinnabar);
+}
+
+.header__mobile-nav .header__nav-subitem.active > .header__nav-link{
+     font-weight: bold;
+    color: var(--cinnabar);
+}
+
+/* Hide CTA within mobile nav */
+.header__mobile-nav .header__cta--mobile {
+    display: none;
+}
+
+/* Styles for the hamburger button when the menu is open (Refined 'X') */
+.header__hamburger-button.is-active .hamburger-line:nth-child(1) {
+  transform: translateY(5px) rotate(45deg); /* Adjust translateY */
+}
+
+.header__hamburger-button.is-active .hamburger-line:nth-child(2) {
+  opacity: 0;
+}
+
+.header__hamburger-button.is-active .hamburger-line:nth-child(3) {
+  transform: translateY(-5px) rotate(-45deg); /* Adjust translateY */
+}
+
+/* Hide toggle button on desktop by default */
+.header__nav-submenu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  position: absolute;
+  /* Adjust right positioning to account for nav panel padding */
+  right: 1.5rem; /* << CHANGE THIS VALUE (Match .header__mobile-nav padding) */
+  top: 0;
+  width: 44px;
+  height: 44px;
+  z-index: 1;
+  display: flex; /* Use flex to center icon */
+  align-items: center;
+  justify-content: center;
+}
+
+.header__nav-submenu-toggle .toggle-icon {
+    display: block;
+    width: 12px;
+    height: 12px;
+    margin: auto; /* Center icon */
+    position: relative;
+    transition: transform 0.3s ease;
+}
+.header__nav-submenu-toggle .toggle-icon::before,
+.header__nav-submenu-toggle .toggle-icon::after {
+    content: '';
+    position: absolute;
+    background-color: var(--cinnabar); /* Icon color */
+    transition: transform 0.3s ease;
+}
+/* Create a '+' icon */
+.header__nav-submenu-toggle .toggle-icon::before {
+    width: 100%;
+    height: 2px;
+    top: 5px;
+    left: 0;
+}
+.header__nav-submenu-toggle .toggle-icon::after {
+    width: 2px;
+    height: 100%;
+    top: 0;
+    left: 5px;
+}
+
+/* --- Ensure Accordion Toggle is Hidden on Desktop --- */
+.header__desktop-nav-container .header__nav-submenu-toggle {
+  display: none !important; /* Force hide in desktop container */
+}
+
+/* Mobile Nav Specific Adjustments - Ensure this still shows it */
+.header__mobile-nav .header__nav-submenu-toggle {
+  display: flex; /* Show the toggle button only in mobile */
+  /* Other existing mobile toggle styles */
+  /* ... */
+}
+
+/* Transform '+' into '-' when open */
+.header__nav-submenu-toggle[aria-expanded="true"] .toggle-icon::after {
+    transform: scaleY(0); /* Hide vertical bar */
+}
+.header__nav-submenu-toggle[aria-expanded="true"] .toggle-icon {
+     /* Optional: rotate icon slightly */
+    /* transform: rotate(45deg); */
+}
+
+
+/* Mobile Nav Specific Adjustments */
+.header__mobile-nav .header__nav-item.has-children > .header__nav-link {
+  /* Ensure padding accommodates the button's position */
+  padding-right: calc(1.5rem + 44px); /* Adjust if right value changes */
+}
+
+.header__mobile-nav .header__nav-submenu-toggle {
+  display: flex; /* Show the toggle button only in mobile */
+  align-items: center;
+  justify-content: center;
+}
+
+/* Override desktop sublist display and hide mobile sublist by default */
+.header__mobile-nav .header__nav-sublist {
+  display: block; /* Keep display block for layout */
+  max-height: 0; /* Use max-height for transition */
+  overflow: hidden;
+  transition: max-height 0.4s ease-out; /* Animate max-height */
+  /* Reset other desktop styles if necessary */
+  position: static;
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0 0 0 1rem; /* Only left padding */
+  margin: 0;
+  min-width: auto;
+  list-style: none;
+  opacity: 1 !important;
+  visibility: visible !important;
+  width: 100%;
+}
+
+/* Style for open mobile sublist */
+.header__mobile-nav .header__nav-item.is-open > .header__nav-sublist {
+  /* Set max-height to something larger than content will ever be */
+  max-height: 500px; /* Adjust as needed */
+  padding: 0.25rem 0 0.5rem 1rem; /* Restore padding when open */
+}
+
+/* Adjust sub-item link padding */
+.header__mobile-nav .header__nav-subitem a {
+    padding: 0.5rem 0 0.5rem 0.5rem; /* Add a bit more left padding */
+}
+
+
+  @media (max-width: 768px) { /* Adjust breakpoint as needed */
+    .landing{
+      margin-top: 0;
+      height: 200vh;
+      grid-template-rows: 50vh 50vh 100vh;
+    }
+    #mopheads__logo_text{
+      align-self: center;
+    }
+  }
+
+/* Media Query for screens 980px and below */
+@media (max-width: 980px) {
+  /* Hide desktop containers */
+  .header__desktop-nav-container,
+  .header__desktop-cta-container {
+    display: none;
+  }
+
+  .header__hamburger-button {
+    display: block; /* Show hamburger button */
+  }
+
+  .content-wrapper--three-columns {
+     /* Ensure grid works for mobile: logo | spacer | button */
+    grid-template-columns: auto 1fr auto;
+  }
+}

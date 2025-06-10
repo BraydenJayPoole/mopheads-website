@@ -1,0 +1,131 @@
+baseurl = "http://localhost:1313/"
+languageCode = "en-us"
+title = "My Hugo Site"
+
+[build]
+  writeStats = true # Needed for PurgeCSS content analysis
+
+[build.processing]
+  [build.processing.css]
+    [build.processing.css.postcss]
+      # Set command = "postcss" if needed, often auto-detected
+      # command = "postcss" 
+
+# --- PostCSS Configuration within hugo.toml ---
+[build.postcss]
+  # Use PurgeCSS only in production
+  [build.postcss.plugins]
+    [build.postcss.plugins.purgecss]
+      # Enable only in production
+      if = "hugo.IsProduction" 
+      # Use the package installed via npm/yarn/pnpm
+      module = "@fullhuman/postcss-purgecss" 
+      # Pass options directly here
+      [build.postcss.plugins.purgecss.options]
+        content = ["hugo_stats.json"] # Analyze content paths from hugo_stats.json
+        defaultExtractor = '''
+          content => {
+            const els = JSON.parse(content).htmlElements;
+            return [...(els.classes || []), ...(els.ids || [])];
+          }
+        '''
+        [build.postcss.plugins.purgecss.options.safelist]
+          standard = [
+            "is-active", 
+            "is-open"
+            # Add any other essential classes here
+          ]
+          greedy = [
+            "/header__nav-item--open/", 
+            "/header__nav-sublist--visible/"
+            # Add other essential regex patterns here
+          ]
+
+[menus]
+    [[menu.main]]
+    name = "Home"
+    pageref = "/"
+    weight = 1
+
+    [[menu.main]]
+    name = "Services"
+    pageref = "/services/"
+    weight = 2
+    
+    [[menu.main]] # Submenu under Services
+    parent = "Services"
+    name = "Domestic Cleaning"
+    pageref = "/services/domestic-cleaning/"
+    weight = 1
+    
+    [[menu.main]] # Submenu under Services
+    parent = "Services"
+    name = "Commercial Cleaning"
+    pageref = "/services/commercial-cleaning/"
+    weight = 2
+
+    [[menu.main]] # Submenu under Services
+    parent = "Services"
+    name = "End-of-Lease Cleaning"
+    pageref = "/services/end-of-lease-cleaning/"
+    weight = 3
+
+    [[menu.main]] # Submenu under Services
+    parent = "Services"
+    name = "Lawn Mowing"
+    pageref = "/services/lawn-mowing/"
+    weight = 4
+
+    [[menu.main]]
+    name = "NDIS"
+    pageref = "/ndis/"
+    weight = 3
+
+    [[menu.main]]
+    name = "Blog"
+    pageref = "/blog/"
+    weight = 4
+
+    [[menu.secondary]] # Secondary navigation (sub-navigation)
+    name = "About Us"
+    pageref = "/about/"
+    weight = 1
+
+    [[menu.secondary]]
+    name = "Contact Us"
+    pageref = "/contact/"
+    weight = 2
+
+    [[menu.secondary]]
+    name = "Portfolio"
+    pageref = "/portfolio/"
+    weight = 3
+
+    [[menu.secondary]]
+    name = "FAQ"
+    pageref = "/faq/"
+    weight = 4
+
+    [[menu.secondary]]
+    name = "Docs"
+    pageref = "/docs/"
+    weight = 5
+
+    [[menu.secondary]]
+    parent = "Docs"
+    name = "Terms of Service"
+    pageref = "/terms/"
+    weight = 1
+    
+    [[menu.secondary]]
+    parent = "Docs"
+    name = "Privacy Policy"
+    pageref = "/privacy/"
+    weight = 2
+    
+
+
+
+
+
+

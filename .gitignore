@@ -1,0 +1,17 @@
+ # Generated public folder
+/public/
+
+# Processed images and other resources
+/resources/
+
+/node_modules/
+
+# Windows thumbnail cache
+Thumbs.db
+
+# Desktop.ini files
+Desktop.ini
+
+# DS_Store for Mac users who might collaborate
+.DS_Store
+

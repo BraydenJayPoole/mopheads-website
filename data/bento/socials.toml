@@ -1,0 +1,17 @@
+[facebook]
+  title = "Facebook"
+  description = "Mopheads Cleaning Newcastle on Facebook"
+  icon = ""
+  link = "/services/domestic-cleaning/"
+
+[instagram]
+  title = "Instagram"
+  description = "Mopheads Cleaning Newcastle on Instagram"
+  icon = ""
+  link = "/services/commercial-cleaning/"
+
+[tiktok]
+  title = "TikTok"
+  description = "Mopheads Cleaning Newcastle on TikTok"
+  icon = ""
+  link = "/services/end-of-lease-cleaning/"

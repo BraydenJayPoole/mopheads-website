@@ -1,0 +1,140 @@
+/* assets/css/components/quote-form.css */
+
+/* Optional: Style for the help link above the form */
+
+.cta-form{
+  align-self: center;
+}
+
+.quote-form-help {
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left; /* Or adjust as needed */
+    font-size: 0.875rem;
+    margin-bottom: 0.5rem;
+    color: #555; /* Adjust color */
+  }
+  .quote-form-help a {
+    color: inherit; /* Adjust link color if needed */
+    text-decoration: none;
+  }
+  .quote-form-help a:hover {
+    text-decoration: underline;
+  }
+  
+  
+  .quote-form-container {
+    background-color: #fff; /* White background like the image */
+    border: 1px solid #e0e0e0; /* Subtle border */
+    border-radius: 0.375rem; /* Adjust for desired roundness */
+    overflow: hidden; /* Ensures children don't overflow rounded corners */
+    max-width: 800px; /* Adjust max width as needed */
+    margin: 1rem auto; /* Center the form */
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05); /* Optional subtle shadow */
+  }
+  
+  .quote-form {
+    display: flex;
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+    align-items: stretch; /* Make items same height */
+  }
+  
+  .quote-form__group {
+    flex: 1 1 auto; /* Allow dropdowns to grow and shrink */
+    position: relative; /* Needed for potential custom arrows */
+    border-right: 1px solid #e0e0e0; /* Divider */
+    min-width: 150px; /* Minimum width for dropdowns */
+  }
+  
+  .quote-form__group:last-of-type {
+     /* Remove divider from the group before the button */
+     /* This assumes the button is the last direct child of .quote-form */
+     /* If structure changes, this selector might need adjustment */
+     /* border-right: none; -- Let's apply this to the button container instead */
+  }
+  
+  .quote-form__select {
+    appearance: none; /* Remove default arrow */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: transparent;
+    border: none;
+    padding: 1rem 2.5rem 1rem 1rem; /* Adjust padding (space for arrow) */
+    margin: 0;
+    width: 100%;
+    font-family: inherit; /* Use site's font */
+    font-size: 1rem; /* Adjust font size */
+    cursor: pointer;
+    line-height: inherit;
+    outline: none; /* Remove focus outline if desired, add custom focus style */
+  
+    /* Custom arrow styling (Example) */
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23666666%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E');
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 0.65em auto;
+  }
+  
+  /* Add focus style for accessibility */
+  .quote-form__select:focus {
+    box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.3); /* Example focus ring */
+  }
+  
+  .quote-form__action {
+    flex-shrink: 0; /* Prevent button area from shrinking */
+    display: flex; /* Use flex to align button */
+  }
+  
+  .quote-form__button {
+    background-color: #F07147; /* Example Blue - Use your theme color */
+    color: white;
+    border: none;
+    padding: 1rem 1.5rem; /* Adjust padding */
+    font-size: 1rem; /* Adjust size */
+    font-weight: 600; /* Semi-bold */
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    white-space: nowrap; /* Prevent text wrapping */
+    display: flex; /* Align text/arrow if needed */
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1; /* Make button fill the action area */
+  }
+  
+  .quote-form__button:hover {
+    background-color: #E56338; /* Darker blue on hover */
+  }
+  
+  /* Visually Hidden Class for Labels (Accessibility) */
+  .visually-hidden {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+    white-space: nowrap; /* Prevent wrapping */
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) { /* Adjust breakpoint as needed */
+    .quote-form {
+      flex-direction: column; /* Stack vertically on smaller screens */
+    }
+    .quote-form__group {
+      border-right: none; /* Remove vertical dividers */
+      border-bottom: 1px solid #e0e0e0; /* Add horizontal dividers */
+    }
+     .quote-form__group:last-of-type {
+       border-bottom: none; /* Remove last divider */
+     }
+    .quote-form__action {
+       width: 100%; /* Make button full width */
+     }
+     .quote-form__button{
+       border-radius: 0 0 0.375rem 0.375rem; /* Adjust button corners if container is rounded */
+     }
+  }
