@@ -1,0 +1,24 @@
+{{/* layouts/partials/components/services-tabs.html */}}
+<section class="services-tabs-container" id="services-tabs">
+    {{/* Get the categories array and sort it by the 'weight' field */}}
+    {{ $categories := sort .Site.Data.services.categories "weight" }}
+
+    {{/* --- Tab Navigation --- */}}
+    <nav class="services-tabs__nav" aria-label="Service Categories">
+        {{ range $index, $category := $categories }}
+            <button class="services-tabs__nav-button {{ if eq $index 0 }}is-active{{ end }}" data-tab-target="#service-tab-{{ $category.key }}" role="tab" aria-selected="{{ if eq $index 0 }}true{{ else }}false{{ end }}">
+                {{ $category.name }}
+            </button>
+        {{ end }}
+    </nav>
+
+    {{/* --- Tab Content Panels --- */}}
+    <div class="services-tabs__content">
+        {{ range $index, $category := $categories }}
+            <div class="services-tabs__content-panel {{ if eq $index 0 }}is-active{{ end }}" id="service-tab-{{ $category.key }}" role="tabpanel">
+                {{/* Pass the correct data down to the child partial */}}
+                {{ partial "components/services/category-section.html" (dict "categoryKey" $category.key "categoryName" $category.name "servicesMap" $category.services) }}
+            </div>
+        {{ end }}
+    </div>
+</section>

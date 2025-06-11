@@ -1,0 +1,56 @@
+/* assets/css/components/services-tabs.css */
+
+.services-tabs-container {
+    padding: 4rem 2rem;
+    /* Sets a base background color. You can change this to any color you prefer. */
+    background-color: var(--old-lace);
+}
+
+.services-tabs__nav {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.services-tabs__nav-button {
+    padding: 0.75rem 1.5rem;
+    border-radius: 9999px; /* Pill shape */
+    border: 2px solid var(--cinnabar);
+    background-color: transparent;
+    color: var(--cinnabar);
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.services-tabs__nav-button:hover {
+    background-color: rgba(229, 99, 56, 0.1); /* Semi-transparent cinnabar */
+}
+
+.services-tabs__nav-button.is-active {
+    background-color: var(--cinnabar);
+    color: var(--old-lace);
+}
+
+.services-tabs__content-panel {
+    display: none; /* Panels are hidden by default */
+}
+
+.services-tabs__content-panel.is-active {
+    display: block; /* Show the active panel */
+}
+
+/* Ensure the service-layout within the tab panel has a transparent background and proper sizing */
+.services-tabs__content-panel .service-layout {
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+    height: auto;
+    max-height: none;
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+}

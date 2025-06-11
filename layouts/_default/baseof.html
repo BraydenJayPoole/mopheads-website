@@ -192,6 +192,39 @@ document.addEventListener('DOMContentLoaded', () => {
          }
     });
 });
+
+// Logic for the new Service Tabs Component
+    document.addEventListener('DOMContentLoaded', () => {
+        const tabsContainer = document.getElementById('services-tabs');
+        if (!tabsContainer) return;
+
+        const navButtons = tabsContainer.querySelectorAll('.services-tabs__nav-button');
+        const contentPanels = tabsContainer.querySelectorAll('.services-tabs__content-panel');
+
+        navButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Deactivate all buttons and panels
+                navButtons.forEach(btn => {
+                    btn.classList.remove('is-active');
+                    btn.setAttribute('aria-selected', 'false');
+                });
+                contentPanels.forEach(panel => {
+                    panel.classList.remove('is-active');
+                });
+
+                // Activate the clicked button
+                button.classList.add('is-active');
+                button.setAttribute('aria-selected', 'true');
+
+                // Activate the corresponding content panel
+                const targetPanelId = button.dataset.tabTarget;
+                const targetPanel = tabsContainer.querySelector(targetPanelId);
+                if (targetPanel) {
+                    targetPanel.classList.add('is-active');
+                }
+            });
+        });
+    });
 </script>
 
 </body>

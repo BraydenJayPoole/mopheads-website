@@ -1,0 +1,24 @@
+--- Service Sections Start --- */}}
+
+{{/* Section for Residential */}}
+{{ $resData := .Site.Data.services.residential }}
+{{ if $resData }}
+    {{/* UPDATED PATH BELOW */}}
+    {{ partial "components/services/category-section.html" (dict "categoryKey" "residential" "categoryName" "Residential Services" "servicesMap" $resData) }}
+{{ end }}
+
+{{/* Section for Specialist & Commercial */}}
+{{ $specData := .Site.Data.services.specialist_and_commercial }}
+{{ if $specData }}
+     {{/* UPDATED PATH BELOW */}}
+     {{ partial "components/services/category-section.html" (dict "categoryKey" "specialist_and_commercial" "categoryName" "Specialist & Commercial" "servicesMap" $specData) }}
+{{ end }}
+
+{{/* Section for Outdoor */}}
+{{ $outData := .Site.Data.services.outdoor }}
+{{ if $outData }}
+     {{/* UPDATED PATH BELOW */}}
+     {{ partial "components/services/category-section.html" (dict "categoryKey" "outdoor" "categoryName" "Outdoor Services" "servicesMap" $outData) }}
+{{ end }}
+
+{{/* --- Service Sections End ---  */}}

@@ -1,25 +1,5 @@
 /* assets/css/components/services.css */
 
-/* --- Full Height Section --- */
-.full-height-section {
-    min-height: 100vh; /* Force minimum height */
-    padding: 4rem 2rem; /* Add some padding */
-    display: flex; /* Use flex to center content */
-    align-items: center;
-    justify-content: center;
-    box-sizing: border-box; /* Include padding in height calculation */
-}
-/* Optional: Add different backgrounds per section */
-.full-height-section.residential {
-    background-color: #E56338; /* Example */
-}
-.full-height-section.specialist_and_commercial {
-    background-color: #f0f0f0; /* Example */
-}
-.full-height-section.outdoor {
-     background-color: #e8f5e9; /* Example */
-}
-
 /* --- Service Master/Detail Layout --- */
 .service-layout {
     display: flex;

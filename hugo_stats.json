@@ -35,6 +35,7 @@
     "classes": [
       "active",
       "author",
+      "categories",
       "content-wrapper",
       "content-wrapper--three-columns",
       "cta-form",
@@ -56,6 +57,7 @@
       "header__nav-subitem",
       "header__nav-sublist",
       "header__nav-submenu-toggle",
+      "is-active",
       "landing",
       "outdoor",
       "quote-form",
@@ -74,6 +76,11 @@
       "service-layout__detail-placeholder",
       "service-layout__master",
       "service-layout__master-item",
+      "services-tabs-container",
+      "services-tabs__content",
+      "services-tabs__content-panel",
+      "services-tabs__nav",
+      "services-tabs__nav-button",
       "specialist_and_commercial",
       "testimonial",
       "testimonial-slider",
@@ -92,16 +99,24 @@
       "quote-book-button",
       "quote-form",
       "riveCanvas",
+      "service-detail-content-categories",
       "service-detail-content-outdoor",
       "service-detail-content-residential",
       "service-detail-content-specialist_and_commercial",
+      "service-section-categories",
       "service-section-outdoor",
       "service-section-residential",
       "service-section-specialist_and_commercial",
+      "service-tab-categories",
+      "service-tab-outdoor",
+      "service-tab-residential",
+      "service-tab-specialist_and_commercial",
       "service-type",
+      "services-data-categories",
       "services-data-outdoor",
       "services-data-residential",
-      "services-data-specialist_and_commercial"
+      "services-data-specialist_and_commercial",
+      "services-tabs"
     ]
   }
 }
