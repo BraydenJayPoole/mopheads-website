@@ -21,211 +21,127 @@
   {{ $styles := resources.Get "css/style.css" | resources.ExecuteAsTemplate "css/style.css" . | minify | fingerprint }}
   <link rel="stylesheet" href="{{ $styles.RelPermalink }}" integrity="{{ $styles.Data.Integrity }}">
 
-  <script>
- // This script should be in your main JS file or in baseof.html, loaded once.
-
-// This script should be in your main JS file or in baseof.html, loaded once.
-
-document.addEventListener('DOMContentLoaded', () => {
-    const masterPanes = document.querySelectorAll('.service-layout__master');
-
-    if (!masterPanes.length) {
-        return;
-    }
-
-    const allSectionData = {};
-    document.querySelectorAll('script[id^="services-data-"]').forEach(scriptTag => {
-        const categoryKey = scriptTag.id.replace('services-data-', '');
-        try {
-            const jsonString = JSON.parse(scriptTag.textContent);
-            allSectionData[categoryKey] = JSON.parse(jsonString);
-        } catch (e) {
-            console.error(`Failed to parse services data for category ${categoryKey}:`, e);
-        }
-    });
-
-    // MODIFIED generateIconHTML (was generateIconSVG) function
-    function generateIconHTML(type) {
-        let iconClass = '';
-        let iconColor = 'var(--cinnabar)'; // Default color from your theme
-
-        switch (type) {
-            case 'home': // For "Home Sweet Clean" (Overview)
-                iconClass = 'fas fa-home';
-                iconColor = '#8B5CF6'; // Purple, similar to image
-                break;
-            case 'calendar': // For "Your Clean, Your Schedule"
-                iconClass = 'fas fa-calendar-alt';
-                iconColor = '#8B5CF6'; // Purple, similar to image
-                break;
-            case 'checklistLarge': // For "Comprehensive Checklist" title
-                iconClass = 'fas fa-clipboard-list'; // Or 'fa-tasks'
-                iconColor = '#10B981'; // Green, similar to image
-                break;
-            case 'checklistSmall': // For individual checklist items
-                iconClass = 'fas fa-check-circle'; // A circle check
-                iconColor = '#10B981'; // Green
-                return `<i class="${iconClass}" style="color: ${iconColor}; font-size: 1em; vertical-align: middle; margin-right: 8px;"></i>`; // Smaller, specific style
-            case 'tag': // For "Clear & Fair Pricing"
-                iconClass = 'fas fa-tags'; // or 'fa-dollar-sign'
-                iconColor = '#F59E0B'; // Amber/Gold, similar to image
-                break;
-            default:
-                iconClass = 'fas fa-info-circle'; // Fallback
-                break;
-        }
-        return `<i class="${iconClass}" style="color: ${iconColor};"></i>`;
-    }
-
-    // MODIFIED updateDetailView function
-    function updateDetailView(detailContentElement, serviceData) {
-        let html = '<p class="service-layout__detail-placeholder">Details not available.</p>';
-
-        if (serviceData) {
-            html = '<div class="service-layout__detail-bento-grid">';
-
-            if (serviceData.overview) {
-                html += `
-                    <div class="service-layout__detail-bento-card service-layout__detail-bento-card--icon-left">
-                        <div class="service-layout__detail-icon">
-                            ${generateIconHTML("home")}
-                        </div>
-                        <div class="service-layout__detail-card-content">
-                            <h4>${serviceData.type === 'Domestic' || serviceData.type === 'domestic' ? 'Home Sweet Clean' : 'Service Overview'}</h4>
-                            <p>${serviceData.overview}</p>
-                        </div>
-                    </div>`;
-            }
-
-            if (serviceData.schedule_options) {
-                html += `
-                    <div class="service-layout__detail-bento-card service-layout__detail-bento-card--icon-left">
-                        <div class="service-layout__detail-icon">
-                            ${generateIconHTML("calendar")}
-                        </div>
-                        <div class="service-layout__detail-card-content">
-                            <h4>Your Clean, Your Schedule</h4>
-                            <p>${serviceData.schedule_options}</p>
-                        </div>
-                    </div>`;
-            }
-
-            if (serviceData.inclusions) {
-                let inclusionsContent = '';
-                const items = serviceData.inclusions.split(',').map(item => item.trim()).filter(item => item);
-                if (items.length > 0) {
-                     inclusionsContent = '<ul>' + items.map(item => `<li>${generateIconHTML("checklistSmall")}${item}</li>`).join('') + '</ul>';
-                } else {
-                    inclusionsContent = `<p>Standard cleaning tasks.</p>`;
-                }
-                html += `
-                    <div class="service-layout__detail-bento-card service-layout__detail-bento-card--full-width service-layout__detail-bento-card--icon-left">
-                        <div class="service-layout__detail-icon">
-                             ${generateIconHTML("checklistLarge")}
-                        </div>
-                        <div class="service-layout__detail-card-content">
-                            <h4>Comprehensive Checklist</h4>
-                            ${inclusionsContent}
-                        </div>
-                    </div>`;
-            }
-
-            if (serviceData.pricing) {
-                html += `
-                    <div class="service-layout__detail-bento-card service-layout__detail-bento-card--full-width service-layout__detail-bento-card--icon-left">
-                        <div class="service-layout__detail-icon">
-                            ${generateIconHTML("tag")}
-                        </div>
-                        <div class="service-layout__detail-card-content">
-                            <h4>Clear & Fair Pricing</h4>
-                            <p>${serviceData.pricing}</p>
-                        </div>
-                    </div>`;
-            }
-
-            html += `
-                <div class="service-layout__detail-bento-card service-layout__detail-bento-card--full-width service-layout__detail-bento-card--cta">
-                    <button type="button" class="cta__button service-layout__quote-button" onclick="window.location.href='/contact';">
-                        Request a Personalised Quote
-                    </button>
-                </div>
-            `;
-
-            html += '</div>';
-        }
-        detailContentElement.innerHTML = html;
-    }
-
-    // ... (rest of your existing JavaScript for masterPanes event listeners etc.)
-    masterPanes.forEach(masterPane => {
-        masterPane.addEventListener('click', (event) => {
-            if (event.target.classList.contains('service-layout__master-item')) {
-                const clickedItem = event.target;
-                const serviceKey = clickedItem.dataset.serviceKey;
-                const sectionElement = clickedItem.closest('.full-height-section');
-                if (!sectionElement) return;
-                const categoryKey = sectionElement.id.replace('service-section-', '');
-                const detailContentElement = sectionElement.querySelector(`#service-detail-content-${categoryKey}`);
-                const servicesDataForSection = allSectionData[categoryKey];
-
-                if (!detailContentElement || !servicesDataForSection) return;
-
-                const currentActive = masterPane.querySelector('.service-layout__master-item.is-active');
-                if (currentActive) currentActive.classList.remove('is-active');
-                clickedItem.classList.add('is-active');
-
-                const service = servicesDataForSection[serviceKey];
-                updateDetailView(detailContentElement, service);
-
-                if (window.innerWidth <= 768) {
-                     const detailPane = sectionElement.querySelector('.service-layout__detail');
-                     if(detailPane) detailPane.style.display = 'block';
-                 }
-            }
-        });
-         const categoryKey = masterPane.closest('.full-height-section')?.id.replace('service-section-', '');
-         if (categoryKey) {
-             const detailContentElement = document.getElementById(`service-detail-content-${categoryKey}`);
-             if (detailContentElement) {
-                detailContentElement.innerHTML = '<p class="service-layout__detail-placeholder">Please select a service from the list to see details.</p>';
-             }
-         }
-    });
-});
-
-// Logic for the new Service Tabs Component
+<script>
     document.addEventListener('DOMContentLoaded', () => {
-        const tabsContainer = document.getElementById('services-tabs');
-        if (!tabsContainer) return;
+        const tabsNav = document.getElementById('tabs-nav');
+        if (!tabsNav) return; // Exit if the component isn't on the page
 
-        const navButtons = tabsContainer.querySelectorAll('.services-tabs__nav-button');
-        const contentPanels = tabsContainer.querySelectorAll('.services-tabs__content-panel');
+        const tabButtons = tabsNav.querySelectorAll('.tab-button');
+        const activeTabIndicator = document.getElementById('active-tab-indicator');
+        const serviceLists = document.querySelectorAll('.service-list');
+        const detailsPanels = document.querySelectorAll('.details-panel');
 
-        navButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                // Deactivate all buttons and panels
-                navButtons.forEach(btn => {
-                    btn.classList.remove('is-active');
-                    btn.setAttribute('aria-selected', 'false');
-                });
-                contentPanels.forEach(panel => {
-                    panel.classList.remove('is-active');
-                });
+        function setIndicator(tab) {
+            if (!tab) return;
+            activeTabIndicator.style.left = `${tab.offsetLeft}px`;
+            activeTabIndicator.style.width = `${tab.offsetWidth}px`;
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+            tab.classList.add('active');
+        }
 
-                // Activate the clicked button
-                button.classList.add('is-active');
-                button.setAttribute('aria-selected', 'true');
+        function switchServicePanel(button) {
+            const currentNav = button.closest('.service-list');
+            if (!currentNav || !currentNav.classList.contains('active')) return;
 
-                // Activate the corresponding content panel
-                const targetPanelId = button.dataset.tabTarget;
-                const targetPanel = tabsContainer.querySelector(targetPanelId);
-                if (targetPanel) {
-                    targetPanel.classList.add('is-active');
+            currentNav.querySelectorAll('.service-button').forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+            
+            const targetPanelId = `${button.dataset.panel}-details`;
+            
+            detailsPanels.forEach(p => p.classList.remove('active'));
+
+            const targetPanel = document.getElementById(targetPanelId);
+            if (targetPanel) {
+                setTimeout(() => targetPanel.classList.add('active'), 50);
+            }
+        }
+        
+        function handleTabClick(tab) {
+            setIndicator(tab);
+            const targetListId = `${tab.dataset.tab}-services`;
+            
+            serviceLists.forEach(list => {
+                list.classList.remove('active');
+                if (list.id === targetListId) {
+                    list.classList.add('active');
+                    const firstServiceButton = list.querySelector('.service-button');
+                    if (firstServiceButton) {
+                        switchServicePanel(firstServiceButton);
+                    }
                 }
             });
+        }
+
+        tabButtons.forEach(tab => tab.addEventListener('click', () => handleTabClick(tab)));
+
+        document.querySelectorAll('.service-button').forEach(button => {
+            button.addEventListener('click', () => switchServicePanel(button));
         });
+        
+        // --- UPDATED Share Button Logic ---
+        document.querySelectorAll('.share-button').forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if(button.classList.contains('is-copied')) return;
+
+                const tab = button.dataset.tab;
+                const panel = button.dataset.panel;
+                const url = `${window.location.origin}${window.location.pathname}#tab=${tab}&service=${panel}`;
+                
+                navigator.clipboard.writeText(url).then(() => {
+                    const originalIcon = button.innerHTML;
+                    button.classList.add('is-copied');
+                    button.innerHTML = `<svg class="share-button__icon" style="color: #22c55e;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>`;
+                    setTimeout(() => { 
+                        button.innerHTML = originalIcon; 
+                        button.classList.remove('is-copied');
+                    }, 2000);
+                }).catch(err => {
+                    console.error('Failed to copy text: ', err);
+                });
+            });
+        });
+
+        document.querySelectorAll('.expand-checklist-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const checklist = button.previousElementSibling;
+                checklist.classList.toggle('expanded');
+                button.textContent = checklist.classList.contains('expanded') ? 'Show less' : 'Show all...';
+            });
+        });
+        
+        function handleDeepLink() {
+            if (window.location.hash) {
+                const params = new URLSearchParams(window.location.hash.substr(1));
+                const tab = params.get('tab');
+                const service = params.get('service');
+
+                if (tab) {
+                    const targetTab = document.querySelector(`.tab-button[data-tab="${tab}"]`);
+                    if (targetTab) {
+                       handleTabClick(targetTab);
+                    }
+                }
+                if (service) {
+                    const targetServiceButton = document.querySelector(`.service-button[data-panel="${service}"]`);
+                    if (targetServiceButton) {
+                        setTimeout(() => switchServicePanel(targetServiceButton), 100);
+                    }
+                }
+            } else {
+                 const initialActiveTab = tabsNav.querySelector('.tab-button');
+                 if (initialActiveTab) {
+                    handleTabClick(initialActiveTab);
+                 }
+            }
+        }
+
+        handleDeepLink();
+        window.addEventListener('hashchange', handleDeepLink, false);
     });
 </script>
+
+
 
 </body>
 </html>

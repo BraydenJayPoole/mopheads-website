@@ -32,8 +32,14 @@ title = "My Hugo Site"
         [build.postcss.plugins.purgecss.options.safelist]
           standard = [
             "is-active", 
-            "is-open"
-            # Add any other essential classes here
+            "is-open", "active",
+            "bento-card--color-green", "bento-card__icon-wrapper--color-green", "share-button__icon--color-green", "bento-card__tagline--color-green", "bento-card__details-link--color-green", "expand-checklist-btn--color-green",
+            "bento-card--color-indigo", "bento-card__icon-wrapper--color-indigo", "share-button__icon--color-indigo", "bento-card__tagline--color-indigo", "bento-card__details-link--color-indigo", "expand-checklist-btn--color-indigo",
+            "bento-card--color-rose", "bento-card__icon-wrapper--color-rose", "share-button__icon--color-rose", "bento-card__tagline--color-rose", "bento-card__details-link--color-rose", "expand-checklist-btn--color-rose",
+            "bento-card--color-amber", "bento-card__icon-wrapper--color-amber", "share-button__icon--color-amber", "bento-card__tagline--color-amber", "bento-card__details-link--color-amber", "expand-checklist-btn--color-amber",
+            "bento-card--color-blue", "bento-card__icon-wrapper--color-blue", "share-button__icon--color-blue", "bento-card__tagline--color-blue", "bento-card__details-link--color-blue", "expand-checklist-btn--color-blue",
+            "bento-card--color-purple", "bento-card__icon-wrapper--color-purple", "share-button__icon--color-purple", "bento-card__tagline--color-purple", "bento-card__details-link--color-purple", "expand-checklist-btn--color-purple",
+            "bento-card--color-lime", "bento-card__icon-wrapper--color-lime", "share-button__icon--color-lime", "bento-card__tagline--color-lime", "bento-card__details-link--color-lime", "expand-checklist-btn--color-lime"
           ]
           greedy = [
             "/header__nav-item--open/", 

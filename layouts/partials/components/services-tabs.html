@@ -1,24 +1,47 @@
 {{/* layouts/partials/components/services-tabs.html */}}
-<section class="services-tabs-container" id="services-tabs">
-    {{/* Get the categories array and sort it by the 'weight' field */}}
-    {{ $categories := sort .Site.Data.services.categories "weight" }}
+{{ $categories := sort .Site.Data.services.categories "weight" }}
+<section class="services-tabs">
+    <div class="main-container">
+        <div id="tabs-nav" class="tabs-container">
+            <div id="active-tab-indicator" class="active-tab-indicator"></div>
+            {{ range $categories }}
+                <button data-tab="{{ .key }}" class="tab-button">{{ .name }}</button>
+            {{ end }}
+        </div>
 
-    {{/* --- Tab Navigation --- */}}
-    <nav class="services-tabs__nav" aria-label="Service Categories">
-        {{ range $index, $category := $categories }}
-            <button class="services-tabs__nav-button {{ if eq $index 0 }}is-active{{ end }}" data-tab-target="#service-tab-{{ $category.key }}" role="tab" aria-selected="{{ if eq $index 0 }}true{{ else }}false{{ end }}">
-                {{ $category.name }}
-            </button>
-        {{ end }}
-    </nav>
+        <div class="services-tabs__grid">
+            <!-- Left: Service List Container -->
+            <div class="services-tabs__nav-column">
+                {{ range $categories }}
+                    <nav id="{{ .key }}-services" class="service-list">
+                        {{/* Create a slice to preserve service keys before sorting */}}
+                        {{ $servicesSlice := slice }}
+                        {{ range $serviceKey, $serviceData := .services }}
+                            {{ $servicesSlice = $servicesSlice | append (dict "key" $serviceKey "data" $serviceData) }}
+                        {{ end }}
+                        
+                        {{ $sortedServices := sort $servicesSlice "data.weight" }}
 
-    {{/* --- Tab Content Panels --- */}}
-    <div class="services-tabs__content">
-        {{ range $index, $category := $categories }}
-            <div class="services-tabs__content-panel {{ if eq $index 0 }}is-active{{ end }}" id="service-tab-{{ $category.key }}" role="tabpanel">
-                {{/* Pass the correct data down to the child partial */}}
-                {{ partial "components/services/category-section.html" (dict "categoryKey" $category.key "categoryName" $category.name "servicesMap" $category.services) }}
+                        {{ range $sortedServices }}
+                            <button data-panel="{{ .key }}" class="service-button">
+                                <span class="service-button__title">{{ .data.type }}</span>
+                                <span class="service-button__tagline">{{ .data.tagline }}</span>
+                            </button>
+                        {{ end }}
+                    </nav>
+                {{ end }}
             </div>
-        {{ end }}
+
+            <!-- Right: Details Panel Container -->
+            <div class="details-container">
+                {{ range $categories }}
+                    {{ $categoryKey := .key }}
+                    {{ range $serviceKey, $serviceData := .services }}
+                        {{ $context := dict "serviceKey" $serviceKey "serviceData" $serviceData "categoryKey" $categoryKey }}
+                        {{ partial "components/services/service-detail-panel.html" $context }}
+                    {{ end }}
+                {{ end }}
+            </div>
+        </div>
     </div>
 </section>

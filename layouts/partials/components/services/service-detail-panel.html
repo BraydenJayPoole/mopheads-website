@@ -1,0 +1,61 @@
+{{/* layouts/partials/components/services/service-detail-panel.html */}}
+{{ $service := .serviceData }}
+{{ $serviceKey := .serviceKey }}
+{{ $categoryKey := .categoryKey }}
+
+<div id="{{ $serviceKey }}-details" class="details-panel">
+    <div class="bento-grid">
+        <!-- Header Card -->
+        <div class="bento-card bento-card--header bento-card--color-{{ $service.icon_color }}">
+            <div class="bento-card__header-content">
+                <div class="bento-card__icon-wrapper bento-card__icon-wrapper--color-{{ $service.icon_color }}">
+                    {{ with $service.icon_color }}
+                        {{ if eq . "green" }}<svg class="bento-card__icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>{{ end }}
+                        {{ if eq . "indigo" }}<svg class="bento-card__icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>{{ end }}
+                        {{ if eq . "rose" }}<svg class="bento-card__icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>{{ end }}
+                        {{ if eq . "amber" }}<svg class="bento-card__icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>{{ end }}
+                        {{ if eq . "blue" }}<svg class="bento-card__icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>{{ end }}
+                        {{ if eq . "purple" }}<svg class="bento-card__icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>{{ end }}
+                        {{ if eq . "lime" }}<svg class="bento-card__icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>{{ end }}
+                    {{ end }}
+                </div>
+                <div><h3 class="bento-card__title">{{ $service.type }}</h3><p class="bento-card__tagline bento-card__tagline--color-{{ $service.icon_color }}">{{ $service.tagline }}</p></div>
+            </div>
+            <div class="bento-card__actions">
+                <a href="{{ printf "/services/%s/" ($serviceKey | urlize) }}" class="bento-card__details-link bento-card__details-link--color-{{ $service.icon_color }}">Details →</a>
+                <button class="share-button" data-tab="{{ $categoryKey }}" data-panel="{{ $serviceKey }}"><svg class="share-button__icon share-button__icon--color-{{ $service.icon_color }}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12s-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.368a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z"></path></svg></button>
+            </div>
+        </div>
+
+        <!-- Inclusions/Features Grid -->
+        {{ if $service.inclusions }}
+            {{ if reflect.IsSlice $service.inclusions }}
+                <div class="bento-card bento-card--checklist">
+                    <h4 class="bento-card__subtitle">{{ $service.inclusions_title | default "Comprehensive Checklist" }}</h4>
+                    <ul class="checklist space-y-2">
+                        {{ range $service.inclusions }}
+                            <li class="checklist__item"><svg class="checklist__icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>{{ . }}</span></li>
+                        {{ end }}
+                    </ul>
+                    {{ if gt (len $service.inclusions) 6 }}
+                        <button class="expand-checklist-btn expand-checklist-btn--color-{{ $service.icon_color }}">Show all...</button>
+                    {{ end }}
+                </div>
+            {{ else }}
+                 <div class="bento-card"><div class="bento-card__icon-wrapper bento-card__icon-wrapper--color-yellow"><svg class="bento-card__icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg></div><h4 class="bento-card__subtitle">{{ $service.inclusions_title }}</h4><p class="bento-card__text">{{ $service.inclusions_text }}</p></div>
+                 <div class="bento-card"><div class="bento-card__icon-wrapper bento-card__icon-wrapper--color-blue"><svg class="bento-card__icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg></div><h4 class="bento-card__subtitle">{{ $service.schedule_title }}</h4><p class="bento-card__text">{{ $service.schedule_text }}</p></div>
+            {{ end }}
+        {{ end }}
+        
+        <!-- Guarantee -->
+        {{ if $service.guarantee_text }}
+             <div class="bento-card"><div class="bento-card__icon-wrapper bento-card__icon-wrapper--color-teal"><svg class="bento-card__icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg></div><h4 class="bento-card__subtitle">Our Guarantee</h4><p class="bento-card__text">{{ $service.guarantee_text }}</p></div>
+        {{ end }}
+        
+        <!-- CTA Card -->
+        <div class="bento-card bento-card--cta">
+            <svg class="bento-card__cta-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+            Book {{ $service.type }}
+        </div>
+    </div>
+</div>

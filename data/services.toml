@@ -1,67 +1,106 @@
 # data/services.toml
+# This is the fully updated data file to power the new "Fluid Panel" component.
 
 # Define an array of categories. The 'weight' will control the tab order.
 [[categories]]
-key = "residential"
-name = "Residential"
-weight = 1
-  # Define the services for this category within a 'services' sub-table
+  key = "residential"
+  name = "Residential"
+  weight = 1
+
+  # Define the services for this category
   [categories.services]
     [categories.services.domestic]
-      type = "Domestic"
-      overview = "General house cleaning for occupied homes."
-      schedule_options = "Weekly, bi-weekly, monthly, or one-off options available."
-      inclusions = "Standard tasks: dusting, vacuuming, mopping, bathrooms, kitchen surfaces."
-      pricing = "Typically hourly rate or fixed price based on home size/condition. Provide details here."
+      type = "Domestic Cleaning"
+      tagline = "Your home, but fresher and tidier."
+      icon_color = "green" # Used for the header card and links
+      # These four fields are for the 2x2 grid of simple bento cards
+      inclusions_title = "Sparkle & Shine"
+      inclusions_text = "Standard dusting, vacuuming, mopping, bathrooms and kitchen surfaces."
+      schedule_title = "Flexible Schedule"
+      schedule_text = "Weekly, bi-weekly, or one-off visits available."
       weight = 1
+
     [categories.services.deep_clean]
       type = "Deep Clean"
-      overview = "Intensive cleaning targeting built-up grime and hard-to-reach areas."
-      schedule_options = "Usually one-off, recommended seasonally or before/after events."
-      inclusions = "Includes standard tasks plus inside ovens, fridges, window tracks, baseboards, etc."
-      pricing = "Higher rate than domestic, often fixed price based on scope. Provide details here."
+      tagline = "The ultimate reset for your home."
+      icon_color = "indigo"
+      # This is a full checklist that will be expandable
+      inclusions = [
+        "All 'Domestic' tasks, plus:",
+        "Inside Oven & Rangehood",
+        "Skirting Boards & Door Frames",
+        "Light Switches & Power Points",
+        "Window Tracks & Sills",
+        "Cabinet & Cupboard Exteriors",
+        "Exhaust Fans & Vents"
+      ]
+      guarantee_text = "We'll make it right if you're not 100% happy with the result."
       weight = 2
+
     [categories.services.end_of_lease]
-      type = "End-of-Lease"
-      overview = "Comprehensive clean required by landlords/agents when vacating a rental property."
-      schedule_options = "One-off service scheduled after moving out, before final inspection."
-      inclusions = "Detailed checklist often provided by agent, covers everything top-to-bottom."
-      pricing = "Fixed price based on property size and specific requirements (e.g., carpet cleaning). Provide details here."
+      type = "End-of-Lease Clean"
+      tagline = "Secure your bond back, stress-free."
+      icon_color = "rose" # Example of another color
+      inclusions_title = "Agent-Approved Checklist"
+      inclusions_text = "Following a comprehensive, agent-approved checklist to cover every corner."
+      schedule_title = "Post-Move Out"
+      schedule_text = "Scheduled after you've moved out for a final, thorough clean."
+      guarantee_text = "We guarantee our clean will meet the requirements for your bond inspection."
       weight = 3
+
     [categories.services.airbnb]
-      type = "AirBnB"
-      overview = "Turnaround cleaning service for short-term rental properties between guests."
-      schedule_options = "Scheduled based on booking calendar, often requires quick turnaround."
-      inclusions = "Cleaning, linen change, restocking amenities, property check."
-      pricing = "Typically fixed price per turnover based on property size/bedrooms. Provide details here."
+      type = "AirBnB Turnover"
+      tagline = "5-star reviews start with a 5-star clean."
+      icon_color = "amber"
+      inclusions = [
+        "Full clean of all rooms",
+        "Fresh linen & towel changeover",
+        "Restocking guest amenities (e.g., coffee, soap)",
+        "Property check for damages or issues",
+        "Tidying and staging for next guest arrival"
+      ]
       weight = 4
 
 [[categories]]
-key = "specialist_and_commercial"
-name = "Specialist & Commercial"
-weight = 2
+  key = "specialist"
+  name = "Specialist"
+  weight = 2
   [categories.services]
     [categories.services.commercial]
-      type = "Commercial"
-      overview = "Cleaning services tailored for business premises like offices, retail spaces, etc."
-      schedule_options = "Contract-based, often daily, weekly, or multiple times per week. After-hours available."
-      inclusions = "Customisable based on contract: general cleaning, restrooms, kitchenettes, waste removal."
+      type = "Commercial Cleaning"
+      tagline = "A professional space for a professional business."
+      icon_color = "blue"
+      inclusions_title = "Customised Service"
+      inclusions_text = "General cleaning, restrooms, kitchenettes, waste removal, and more."
+      schedule_title = "Business-Friendly Hours"
+      schedule_text = "Contract-based, often daily, weekly, or after-hours to minimise disruption."
       weight = 1
+
     [categories.services.ndis]
-      type = "NDIS"
-      overview = "Cleaning services provided to NDIS participants as part of their plan."
-      schedule_options = "Aligned with participant's NDIS plan and support schedule."
-      inclusions = "Tasks focused on maintaining a safe and healthy home environment, as per NDIS guidelines."
+      type = "NDIS Cleaning"
+      tagline = "Supporting participants' goals for a safe home."
+      icon_color = "purple"
+      inclusions_title = "Plan-Focused Tasks"
+      inclusions_text = "Focused on maintaining a safe and healthy home environment, as per NDIS guidelines."
+      schedule_title = "Aligned With Your Plan"
+      schedule_text = "We work with you and your support coordinator to align with your NDIS plan."
       weight = 2
 
 [[categories]]
-key = "outdoor"
-name = "Outdoor"
-weight = 3
+  key = "outdoor"
+  name = "Outdoor"
+  weight = 3
   [categories.services]
     [categories.services.lawn_mowing]
-      type = "Lawn Mowing"
-      overview = "Basic lawn mowing and maintenance services."
-      schedule_options = "Regular (e.g., fortnightly during growing season) or on-demand."
-      inclusions = "Mowing, edge trimming, blowing paths/driveways clear of clippings."
+      type = "Lawn & Garden Care"
+      tagline = "Boost your curb appeal instantly."
+      icon_color = "lime"
+      inclusions = [
+        "Professional lawn mowing",
+        "Precise edge trimming",
+        "Blowing paths & driveways clear of clippings",
+        "Weed management for garden beds",
+        "Green waste removal"
+      ]
+      guarantee_text = "Tidy, reliable service that leaves your yard looking its best."
       weight = 1
