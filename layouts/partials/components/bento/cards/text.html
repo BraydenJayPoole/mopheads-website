@@ -1,0 +1,8 @@
+{{/* layouts/partials/components/bento/cards/text.html */}}
+<div class="bento-card">
+    <div class="bento-card__icon-wrapper bento-card__icon-wrapper--color-{{ .color | default "blue" }}">
+        <i class="bento-card__icon fa-fw bento-card__icon--color-{{ .color | default "blue" }} {{ .icon | default "fa-solid fa-info-circle" }}"></i>
+    </div>
+    <h4 class="bento-card__subtitle">{{ .title }}</h4>
+    <p class="bento-card__text">{{ .text }}</p>
+</div>

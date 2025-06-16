@@ -24,12 +24,15 @@
 <script>
     document.addEventListener('DOMContentLoaded', () => {
         const tabsNav = document.getElementById('tabs-nav');
-        if (!tabsNav) return; // Exit if the component isn't on the page
+        if (!tabsNav) return;
 
         const tabButtons = tabsNav.querySelectorAll('.tab-button');
         const activeTabIndicator = document.getElementById('active-tab-indicator');
         const serviceLists = document.querySelectorAll('.service-list');
         const detailsPanels = document.querySelectorAll('.details-panel');
+        const servicesGrid = document.querySelector('.services-tabs__grid');
+        const backButton = document.querySelector('.details-panel__back-button');
+        const detailsContainer = document.querySelector('.details-container'); // New
 
         function setIndicator(tab) {
             if (!tab) return;
@@ -39,21 +42,42 @@
             tab.classList.add('active');
         }
 
+        function showDetailsView() {
+            if (window.innerWidth < 768) {
+                servicesGrid.classList.add('is-detail-view');
+            }
+        }
+
+        function hideDetailsView() {
+            servicesGrid.classList.remove('is-detail-view');
+        }
+
         function switchServicePanel(button) {
             const currentNav = button.closest('.service-list');
             if (!currentNav || !currentNav.classList.contains('active')) return;
 
             currentNav.querySelectorAll('.service-button').forEach(btn => btn.classList.remove('active'));
             button.classList.add('active');
-            
-            const targetPanelId = `${button.dataset.panel}-details`;
-            
-            detailsPanels.forEach(p => p.classList.remove('active'));
 
-            const targetPanel = document.getElementById(targetPanelId);
-            if (targetPanel) {
-                setTimeout(() => targetPanel.classList.add('active'), 50);
+            const currentlyActivePanel = document.querySelector('.details-panel.active');
+            
+            if (currentlyActivePanel) {
+                detailsContainer.style.minHeight = `${currentlyActivePanel.offsetHeight}px`;
             }
+
+            const targetPanelId = `${button.dataset.panel}-details`;
+            const targetPanel = document.getElementById(targetPanelId);
+
+            if (currentlyActivePanel) {
+                currentlyActivePanel.classList.remove('active');
+            }
+
+            if (targetPanel) {
+                targetPanel.classList.add('active');
+                detailsContainer.style.minHeight = `${targetPanel.offsetHeight}px`;
+            }
+
+            showDetailsView();
         }
         
         function handleTabClick(tab) {
@@ -70,6 +94,7 @@
                     }
                 }
             });
+            hideDetailsView();
         }
 
         tabButtons.forEach(tab => tab.addEventListener('click', () => handleTabClick(tab)));
@@ -77,8 +102,11 @@
         document.querySelectorAll('.service-button').forEach(button => {
             button.addEventListener('click', () => switchServicePanel(button));
         });
+
+        if (backButton) {
+            backButton.addEventListener('click', hideDetailsView);
+        }
         
-        // --- UPDATED Share Button Logic ---
         document.querySelectorAll('.share-button').forEach(button => {
             button.addEventListener('click', (e) => {
                 e.stopPropagation();
@@ -125,7 +153,10 @@
                 if (service) {
                     const targetServiceButton = document.querySelector(`.service-button[data-panel="${service}"]`);
                     if (targetServiceButton) {
-                        setTimeout(() => switchServicePanel(targetServiceButton), 100);
+                        setTimeout(() => {
+                            switchServicePanel(targetServiceButton);
+                            showDetailsView();
+                        }, 100);
                     }
                 }
             } else {
@@ -133,15 +164,21 @@
                  if (initialActiveTab) {
                     handleTabClick(initialActiveTab);
                  }
+                 hideDetailsView();
             }
         }
 
         handleDeepLink();
         window.addEventListener('hashchange', handleDeepLink, false);
+
+        window.addEventListener('resize', () => {
+            const activeTab = tabsNav.querySelector('.tab-button.active');
+            if (activeTab) {
+                setTimeout(() => setIndicator(activeTab), 100);
+            }
+        });
     });
 </script>
-
-
 
 </body>
 </html>

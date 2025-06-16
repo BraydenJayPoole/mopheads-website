@@ -1,106 +1,189 @@
 # data/services.toml
-# This is the fully updated data file to power the new "Fluid Panel" component.
+# This is the fully updated data file, accurately reflecting your services
+# and structured to power the new modular bento component system.
 
-# Define an array of categories. The 'weight' will control the tab order.
 [[categories]]
-  key = "residential"
-  name = "Residential"
-  weight = 1
+key = "residential"
+name = "Residential"
+weight = 1
 
-  # Define the services for this category
   [categories.services]
     [categories.services.domestic]
       type = "Domestic Cleaning"
       tagline = "Your home, but fresher and tidier."
-      icon_color = "green" # Used for the header card and links
-      # These four fields are for the 2x2 grid of simple bento cards
-      inclusions_title = "Sparkle & Shine"
-      inclusions_text = "Standard dusting, vacuuming, mopping, bathrooms and kitchen surfaces."
-      schedule_title = "Flexible Schedule"
-      schedule_text = "Weekly, bi-weekly, or one-off visits available."
+      icon_color = "green"
+      fa_icon = "fa-solid fa-house"
       weight = 1
+      [[categories.services.domestic.bento]]
+        type = "header"
+      [[categories.services.domestic.bento]]
+        type = "text" # Using a generic text card
+        icon = "fa-solid fa-star" # Icon for this card
+        color = "yellow"
+        title = "Sparkle & Shine"
+        text = "Standard dusting, vacuuming, mopping, bathrooms and kitchen surfaces."
+      [[categories.services.domestic.bento]]
+        type = "text"
+        icon = "fa-solid fa-clock"
+        color = "blue"
+        title = "Flexible Schedule"
+        text = "Weekly, bi-weekly, or one-off visits available."
+      [[categories.services.domestic.bento]]
+        type = "cta"
 
     [categories.services.deep_clean]
       type = "Deep Clean"
       tagline = "The ultimate reset for your home."
       icon_color = "indigo"
-      # This is a full checklist that will be expandable
-      inclusions = [
-        "All 'Domestic' tasks, plus:",
-        "Inside Oven & Rangehood",
-        "Skirting Boards & Door Frames",
-        "Light Switches & Power Points",
-        "Window Tracks & Sills",
-        "Cabinet & Cupboard Exteriors",
-        "Exhaust Fans & Vents"
-      ]
-      guarantee_text = "We'll make it right if you're not 100% happy with the result."
+      fa_icon = "fa-solid fa-wand-magic-sparkles"
       weight = 2
+      [[categories.services.deep_clean.bento]]
+        type = "header"
+      [[categories.services.deep_clean.bento]]
+        type = "checklist"
+        title = "Our Deep Cleaning Checklist"
+        items = [
+          "All 'Domestic' tasks, plus:",
+          "Inside Oven & Rangehood",
+          "Skirting Boards & Door Frames",
+          "Light Switches & Power Points",
+          "Window Tracks & Sills",
+          "Cabinet & Cupboard Exteriors",
+          "Exhaust Fans & Vents"
+        ]
+      [[categories.services.deep_clean.bento]]
+        type = "guarantee"
+        text = "We'll make it right if you're not 100% happy with the result."
+      [[categories.services.deep_clean.bento]]
+        type = "cta"
 
     [categories.services.end_of_lease]
       type = "End-of-Lease Clean"
       tagline = "Secure your bond back, stress-free."
-      icon_color = "rose" # Example of another color
-      inclusions_title = "Agent-Approved Checklist"
-      inclusions_text = "Following a comprehensive, agent-approved checklist to cover every corner."
-      schedule_title = "Post-Move Out"
-      schedule_text = "Scheduled after you've moved out for a final, thorough clean."
-      guarantee_text = "We guarantee our clean will meet the requirements for your bond inspection."
+      icon_color = "rose"
+      fa_icon = "fa-solid fa-key"
       weight = 3
+      [[categories.services.end_of_lease.bento]]
+        type = "header"
+      [[categories.services.end_of_lease.bento]]
+        type = "text"
+        icon = "fa-solid fa-clipboard-check"
+        color = "green"
+        title = "Agent-Approved Checklist"
+        text = "Following a comprehensive, agent-approved checklist to cover every corner."
+      [[categories.services.end_of_lease.bento]]
+        type = "text"
+        icon = "fa-solid fa-truck-moving"
+        color = "blue"
+        title = "Post-Move Out"
+        text = "Scheduled after you've moved out for a final, thorough clean."
+      [[categories.services.end_of_lease.bento]]
+        type = "guarantee"
+        text = "We guarantee our clean will meet the requirements for your bond inspection."
+      [[categories.services.end_of_lease.bento]]
+        type = "cta"
 
     [categories.services.airbnb]
       type = "AirBnB Turnover"
       tagline = "5-star reviews start with a 5-star clean."
       icon_color = "amber"
-      inclusions = [
-        "Full clean of all rooms",
-        "Fresh linen & towel changeover",
-        "Restocking guest amenities (e.g., coffee, soap)",
-        "Property check for damages or issues",
-        "Tidying and staging for next guest arrival"
-      ]
+      fa_icon = "fa-solid fa-person-shelter"
       weight = 4
+      [[categories.services.airbnb.bento]]
+        type = "header"
+      [[categories.services.airbnb.bento]]
+        type = "checklist"
+        title = "5-Star Turnover Service"
+        items = [
+          "Full clean of all rooms",
+          "Fresh linen & towel changeover",
+          "Restocking guest amenities (e.g., coffee, soap)",
+          "Property check for damages or issues",
+          "Tidying and staging for next guest arrival"
+        ]
+      [[categories.services.airbnb.bento]]
+        type = "cta"
+
 
 [[categories]]
-  key = "specialist"
-  name = "Specialist"
-  weight = 2
+key = "specialist"
+name = "Specialist"
+weight = 2
+
   [categories.services]
     [categories.services.commercial]
       type = "Commercial Cleaning"
       tagline = "A professional space for a professional business."
       icon_color = "blue"
-      inclusions_title = "Customised Service"
-      inclusions_text = "General cleaning, restrooms, kitchenettes, waste removal, and more."
-      schedule_title = "Business-Friendly Hours"
-      schedule_text = "Contract-based, often daily, weekly, or after-hours to minimise disruption."
+      fa_icon = "fa-solid fa-building"
       weight = 1
+      [[categories.services.commercial.bento]]
+        type = "header"
+      [[categories.services.commercial.bento]]
+        type = "text"
+        icon = "fa-solid fa-briefcase"
+        color = "purple"
+        title = "Customised Service"
+        text = "General cleaning, restrooms, kitchenettes, waste removal, and more."
+      [[categories.services.commercial.bento]]
+        type = "text"
+        icon = "fa-solid fa-business-time"
+        color = "rose"
+        title = "Business-Friendly Hours"
+        text = "Contract-based, often daily, weekly, or after-hours to minimise disruption."
+      [[categories.services.commercial.bento]]
+        type = "cta"
 
     [categories.services.ndis]
       type = "NDIS Cleaning"
       tagline = "Supporting participants' goals for a safe home."
       icon_color = "purple"
-      inclusions_title = "Plan-Focused Tasks"
-      inclusions_text = "Focused on maintaining a safe and healthy home environment, as per NDIS guidelines."
-      schedule_title = "Aligned With Your Plan"
-      schedule_text = "We work with you and your support coordinator to align with your NDIS plan."
+      fa_icon = "fa-solid fa-hand-holding-heart"
       weight = 2
+      [[categories.services.ndis.bento]]
+        type = "header"
+      [[categories.services.ndis.bento]]
+        type = "text"
+        icon = "fa-solid fa-bullseye"
+        color = "indigo"
+        title = "Plan-Focused Tasks"
+        text = "Focused on maintaining a safe and healthy home environment, as per NDIS guidelines."
+      [[categories.services.ndis.bento]]
+        type = "text"
+        icon = "fa-solid fa-calendar-alt"
+        color = "green"
+        title = "Aligned With Your Plan"
+        text = "We work with you and your support coordinator to align with your NDIS plan."
+      [[categories.services.ndis.bento]]
+        type = "cta"
+
 
 [[categories]]
-  key = "outdoor"
-  name = "Outdoor"
-  weight = 3
+key = "outdoor"
+name = "Outdoor"
+weight = 3
+
   [categories.services]
     [categories.services.lawn_mowing]
       type = "Lawn & Garden Care"
       tagline = "Boost your curb appeal instantly."
       icon_color = "lime"
-      inclusions = [
-        "Professional lawn mowing",
-        "Precise edge trimming",
-        "Blowing paths & driveways clear of clippings",
-        "Weed management for garden beds",
-        "Green waste removal"
-      ]
-      guarantee_text = "Tidy, reliable service that leaves your yard looking its best."
+      fa_icon = "fa-solid fa-leaf"
       weight = 1
+      [[categories.services.lawn_mowing.bento]]
+        type = "header"
+      [[categories.services.lawn_mowing.bento]]
+        type = "checklist"
+        title = "Our Lawn & Garden Services"
+        items = [
+          "Professional lawn mowing",
+          "Precise edge trimming",
+          "Blowing paths & driveways clear of clippings",
+          "Weed management for garden beds",
+          "Green waste removal"
+        ]
+      [[categories.services.lawn_mowing.bento]]
+        type = "guarantee"
+        text = "Tidy, reliable service that leaves your yard looking its best."
+      [[categories.services.lawn_mowing.bento]]
+        type = "cta"

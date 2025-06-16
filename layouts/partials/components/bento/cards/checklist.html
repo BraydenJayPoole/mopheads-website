@@ -1,0 +1,12 @@
+{{/* layouts/partials/components/bento/cards/checklist.html */}}
+<div class="bento-card bento-card--checklist">
+    <h4 class="bento-card__subtitle">{{ .title | default "Comprehensive Checklist" }}</h4>
+    <ul class="checklist space-y-2">
+        {{ range .items }}
+            <li class="checklist__item"><i class="checklist__icon fa-solid fa-check"></i><span>{{ . }}</span></li>
+        {{ end }}
+    </ul>
+    {{ if gt (len .items) 5 }}
+        <button class="expand-checklist-btn expand-checklist-btn--color-{{ .service.icon_color }}">Show all...</button>
+    {{ end }}
+</div>

@@ -2,6 +2,9 @@
 {{ $categories := sort .Site.Data.services.categories "weight" }}
 <section class="services-tabs">
     <div class="main-container">
+        <div class="services-tabs__header">
+            <h2 class="services-tabs__heading">I'm looking for...</h2>
+        </div>
         <div id="tabs-nav" class="tabs-container">
             <div id="active-tab-indicator" class="active-tab-indicator"></div>
             {{ range $categories }}
@@ -10,7 +13,6 @@
         </div>
 
         <div class="services-tabs__grid">
-            <!-- Left: Service List Container -->
             <div class="services-tabs__nav-column">
                 {{ range $categories }}
                     <nav id="{{ .key }}-services" class="service-list">
@@ -32,8 +34,13 @@
                 {{ end }}
             </div>
 
-            <!-- Right: Details Panel Container -->
             <div class="details-container">
+                <div class="details-panel__back-wrapper">
+                    <button class="details-panel__back-button">
+                        <svg class="details-panel__back-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                        Back to services
+                    </button>
+                </div>
                 {{ range $categories }}
                     {{ $categoryKey := .key }}
                     {{ range $serviceKey, $serviceData := .services }}
