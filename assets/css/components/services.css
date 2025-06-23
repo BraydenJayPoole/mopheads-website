@@ -2,7 +2,6 @@
 
 /* --- Full-screen container style --- */
 .services-tabs {
-    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -166,6 +165,10 @@
 .details-panel {
     display: none;
     width: 100%;
+    /* --- NEW: Define CSS variables for the cards inside this panel --- */
+    --card-color: #4338ca;      /* Default: indigo-dark */
+    --card-bg-light: #e0e7ff;   /* Default: indigo-light */
+    --card-icon-color: #4f46e5; /* Default: indigo-icon */
 }
 .details-panel.active {
     display: block;
@@ -219,13 +222,15 @@
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+    /* --- NEW: Use CSS variable for background color --- */
+    background-color: var(--card-bg-light);
 }
 
-/* FIX: Control icon size with font-size for proper alignment */
 .bento-card__icon {
-    font-size: 1.75rem; /* Set size with font-size */
-    line-height: 1;      /* Ensure line height doesn't add extra space */
-    /* width and height properties removed */
+    font-size: 1.75rem; 
+    line-height: 1;      
+    /* --- NEW: Use CSS variable for icon color --- */
+    color: var(--card-icon-color);
 }
 
 .bento-card__title {
@@ -233,9 +238,17 @@
     font-weight: 700;
     color: #3a3a3a;
 }
+
+.bento-card__tagline, 
+.bento-card__details-link,
+.expand-checklist-btn {
+    /* --- NEW: Use CSS variable for text color --- */
+    color: var(--card-color);
+}
 .bento-card__tagline {
     opacity: 0.8;
 }
+
 .bento-card__actions {
     display: flex;
     align-items: center;
@@ -255,9 +268,12 @@
     cursor: pointer;
     transition: all 0.2s ease-in-out;
 }
+.share-button:hover { background-color: rgba(0,0,0,0.05); }
+
 .share-button__icon {
     width: 1.25rem;
     height: 1.25rem;
+    color: var(--card-color);
 }
 .bento-card__subtitle {
     font-weight: 600;
@@ -353,12 +369,10 @@
     .details-container {
         position: absolute;
         width: 100%;
-        /* height: 100%; */
         top: 0;
         left: 0;
         padding: 0 1rem 1rem 1rem;
         transition: transform 0.5s cubic-bezier(0.2, 1, 0.3, 1);
-        /* overflow-y: auto; */
     }
     .details-panel__back-wrapper {
         display: block;
@@ -390,37 +404,5 @@
     }
 }
 
-/* --- Color Helpers (FIXED) --- */
-.bento-card__icon-wrapper--color-green { background-color: #dcfce7; color: #16a34a;}
-.bento-card__tagline--color-green, .bento-card__details-link--color-green, .expand-checklist-btn--color-green { color: #15803d; }
-.share-button:hover { background-color: rgba(0,0,0,0.05); }
-
-.bento-card__icon-wrapper--color-indigo { background-color: #e0e7ff; }
-.bento-card__icon--color-indigo { color: #4f46e5; }
-.bento-card__tagline--color-indigo, .bento-card__details-link--color-indigo, .expand-checklist-btn--color-indigo { color: #4338ca; }
-
-.bento-card__icon-wrapper--color-rose { background-color: #ffe4e6; }
-.bento-card__icon--color-rose { color: #e11d48; }
-.bento-card__tagline--color-rose, .bento-card__details-link--color-rose, .expand-checklist-btn--color-rose { color: #be123c; }
-
-.bento-card__icon-wrapper--color-amber { background-color: #fef3c7; }
-.bento-card__icon--color-amber { color: #d97706; }
-.bento-card__tagline--color-amber, .bento-card__details-link--color-amber, .expand-checklist-btn--color-amber { color: #b45309; }
-
-.bento-card__icon-wrapper--color-blue { background-color: #dbeafe; }
-.bento-card__icon--color-blue { color: #2563eb; }
-.bento-card__tagline--color-blue, .bento-card__details-link--color-blue, .expand-checklist-btn--color-blue { color: #1d4ed8; }
-
-.bento-card__icon-wrapper--color-purple { background-color: #ede9fe; }
-.bento-card__icon--color-purple { color: #7c3aed; }
-.bento-card__tagline--color-purple, .bento-card__details-link--color-purple, .expand-checklist-btn--color-purple { color: #6d28d9; }
-
-.bento-card__icon-wrapper--color-lime { background-color: #ecfccb; }
-.bento-card__icon--color-lime { color: #65a30d; }
-.bento-card__tagline--color-lime, .bento-card__details-link--color-lime, .expand-checklist-btn--color-lime { color: #4d7c0f; }
-
-.bento-card__icon-wrapper--color-yellow { background-color: #fef9c3; }
-.bento-card__icon--color-yellow { color: #ca8a04; }
-
-.bento-card__icon-wrapper--color-teal { background-color: #ccfbf1; }
-.bento-card__icon--color-teal { color: #0d9488; }
+/* --- DELETED --- */
+/* The long list of color helper classes has been removed. */

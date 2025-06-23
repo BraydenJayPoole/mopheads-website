@@ -1,137 +1,117 @@
+# Corrected hugo.toml
 baseurl = "http://localhost:1313/"
 languageCode = "en-us"
 title = "My Hugo Site"
 
 [build]
-  writeStats = true # Needed for PurgeCSS content analysis
+  # This tells Hugo to generate hugo_stats.json, which PurgeCSS needs.
+  writeStats = true
 
-[build.processing]
-  [build.processing.css]
-    [build.processing.css.postcss]
-      # Set command = "postcss" if needed, often auto-detected
-      # command = "postcss" 
+  # All PostCSS configuration should live directly under [build.postcss].
+  # This corrected structure removes the conflicting definitions that were breaking the build.
+  [build.postcss]
+    [build.postcss.plugins]
+      [build.postcss.plugins.purgecss]
+        # Enable only when building for production (e.g., `hugo --minify`)
+        if = "hugo.IsProduction"
+        module = "@fullhuman/postcss-purgecss"
+        [build.postcss.plugins.purgecss.options]
+          content = ["hugo_stats.json"]
+          defaultExtractor = '''
+            content => {
+              const els = JSON.parse(content).htmlElements;
+              return [...(els.classes || []), ...(els.ids || [])];
+            }
+          '''
+          [build.postcss.plugins.purgecss.options.safelist]
+            standard = [
+              "is-active",
+              "is-open",
+              "active"
+            ]
+            greedy = [
+              "/header__nav-item--open/",
+              "/header__nav-sublist--visible/"
+            ]
 
-# --- PostCSS Configuration within hugo.toml ---
-[build.postcss]
-  # Use PurgeCSS only in production
-  [build.postcss.plugins]
-    [build.postcss.plugins.purgecss]
-      # Enable only in production
-      if = "hugo.IsProduction" 
-      # Use the package installed via npm/yarn/pnpm
-      module = "@fullhuman/postcss-purgecss" 
-      # Pass options directly here
-      [build.postcss.plugins.purgecss.options]
-        content = ["hugo_stats.json"] # Analyze content paths from hugo_stats.json
-        defaultExtractor = '''
-          content => {
-            const els = JSON.parse(content).htmlElements;
-            return [...(els.classes || []), ...(els.ids || [])];
-          }
-        '''
-        [build.postcss.plugins.purgecss.options.safelist]
-          standard = [
-            "is-active", 
-            "is-open", "active",
-            "bento-card--color-green", "bento-card__icon-wrapper--color-green", "share-button__icon--color-green", "bento-card__tagline--color-green", "bento-card__details-link--color-green", "expand-checklist-btn--color-green",
-            "bento-card--color-indigo", "bento-card__icon-wrapper--color-indigo", "share-button__icon--color-indigo", "bento-card__tagline--color-indigo", "bento-card__details-link--color-indigo", "expand-checklist-btn--color-indigo",
-            "bento-card--color-rose", "bento-card__icon-wrapper--color-rose", "share-button__icon--color-rose", "bento-card__tagline--color-rose", "bento-card__details-link--color-rose", "expand-checklist-btn--color-rose",
-            "bento-card--color-amber", "bento-card__icon-wrapper--color-amber", "share-button__icon--color-amber", "bento-card__tagline--color-amber", "bento-card__details-link--color-amber", "expand-checklist-btn--color-amber",
-            "bento-card--color-blue", "bento-card__icon-wrapper--color-blue", "share-button__icon--color-blue", "bento-card__tagline--color-blue", "bento-card__details-link--color-blue", "expand-checklist-btn--color-blue",
-            "bento-card--color-purple", "bento-card__icon-wrapper--color-purple", "share-button__icon--color-purple", "bento-card__tagline--color-purple", "bento-card__details-link--color-purple", "expand-checklist-btn--color-purple",
-            "bento-card--color-lime", "bento-card__icon-wrapper--color-lime", "share-button__icon--color-lime", "bento-card__tagline--color-lime", "bento-card__details-link--color-lime", "expand-checklist-btn--color-lime"
-          ]
-          greedy = [
-            "/header__nav-item--open/", 
-            "/header__nav-sublist--visible/"
-            # Add other essential regex patterns here
-          ]
-
-[menus]
-    [[menu.main]]
+[menu]
+  [[menu.main]]
     name = "Home"
     pageref = "/"
     weight = 1
 
-    [[menu.main]]
+  [[menu.main]]
     name = "Services"
     pageref = "/services/"
     weight = 2
     
-    [[menu.main]] # Submenu under Services
+  [[menu.main]] # Submenu under Services
     parent = "Services"
     name = "Domestic Cleaning"
     pageref = "/services/domestic-cleaning/"
     weight = 1
     
-    [[menu.main]] # Submenu under Services
+  [[menu.main]] # Submenu under Services
     parent = "Services"
     name = "Commercial Cleaning"
     pageref = "/services/commercial-cleaning/"
     weight = 2
 
-    [[menu.main]] # Submenu under Services
+  [[menu.main]] # Submenu under Services
     parent = "Services"
     name = "End-of-Lease Cleaning"
     pageref = "/services/end-of-lease-cleaning/"
     weight = 3
 
-    [[menu.main]] # Submenu under Services
+  [[menu.main]] # Submenu under Services
     parent = "Services"
     name = "Lawn Mowing"
     pageref = "/services/lawn-mowing/"
     weight = 4
 
-    [[menu.main]]
+  [[menu.main]]
     name = "NDIS"
     pageref = "/ndis/"
     weight = 3
 
-    [[menu.main]]
+  [[menu.main]]
     name = "Blog"
     pageref = "/blog/"
     weight = 4
 
-    [[menu.secondary]] # Secondary navigation (sub-navigation)
+  [[menu.secondary]] # Secondary navigation (sub-navigation)
     name = "About Us"
     pageref = "/about/"
     weight = 1
 
-    [[menu.secondary]]
+  [[menu.secondary]]
     name = "Contact Us"
     pageref = "/contact/"
     weight = 2
 
-    [[menu.secondary]]
+  [[menu.secondary]]
     name = "Portfolio"
     pageref = "/portfolio/"
     weight = 3
 
-    [[menu.secondary]]
+  [[menu.secondary]]
     name = "FAQ"
     pageref = "/faq/"
     weight = 4
 
-    [[menu.secondary]]
+  [[menu.secondary]]
     name = "Docs"
     pageref = "/docs/"
     weight = 5
 
-    [[menu.secondary]]
+  [[menu.secondary]]
     parent = "Docs"
     name = "Terms of Service"
     pageref = "/terms/"
     weight = 1
     
-    [[menu.secondary]]
+  [[menu.secondary]]
     parent = "Docs"
     name = "Privacy Policy"
     pageref = "/privacy/"
     weight = 2
-    
-
-
-
-
-
-

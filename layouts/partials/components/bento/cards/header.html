@@ -3,20 +3,23 @@
 {{ $serviceKey := .serviceKey }}
 {{ $categoryKey := .categoryKey }}
 
-<div class="bento-card bento-card--header bento-card--color-{{ $service.icon_color }}">
+{{/* The long color class name has been removed */}}
+<div class="bento-card bento-card--header">
     <div class="bento-card__header-content">
-        <div class="bento-card__icon-wrapper bento-card__icon-wrapper--color-{{ $service.icon_color }}">
+        {{/* The icon wrapper and icon use the CSS variables set by the parent */}}
+        <div class="bento-card__icon-wrapper">
             <i class="bento-card__icon fa-fw {{ $service.fa_icon | default "fa-solid fa-star" }}"></i>
         </div>
         <div>
             <h3 class="bento-card__title">{{ $service.type }}</h3>
-            <p class="bento-card__tagline bento-card__tagline--color-{{ $service.icon_color }}">{{ $service.tagline }}</p>
+            <p class="bento-card__tagline">{{ $service.tagline }}</p>
         </div>
     </div>
     <div class="bento-card__actions">
-        <a href="{{ printf "/services/%s/" ($serviceKey | urlize) }}" class="bento-card__details-link bento-card__details-link--color-{{ $service.icon_color }}">Details →</a>
+        {{/* The details link and share button also use the CSS variables from the parent */}}
+        <a href="{{ printf "/services/%s/" ($serviceKey | urlize) }}" class="bento-card__details-link">Details →</a>
         <button class="share-button" data-tab="{{ $categoryKey }}" data-panel="{{ $serviceKey }}">
-            <i class="share-button__icon share-button__icon--color-{{ $service.icon_color }} fa-solid fa-share-nodes"></i>
+            <i class="share-button__icon fa-solid fa-share-nodes"></i>
         </button>
     </div>
 </div>

@@ -80,7 +80,7 @@ small{
 }
 
 body {
-    background-color: #f8e4c1;
+  background-color: #fdf5e6;
     color: var(--smoky-black);
     font-family: "Roboto", sans-serif;
     margin: 0;
@@ -144,9 +144,10 @@ body {
     display: block;
     position: relative;
     top: 0;
-    width: 100%;
-    height: 150vh;
-    border-radius: 1rem;
+    width: calc(100% - 2rem);
+    height: calc(100vh - 2rem);
+    border-radius: 2.2rem;
+    border: 1rem solid #fdf5e6;
     z-index: -1;
     }
 

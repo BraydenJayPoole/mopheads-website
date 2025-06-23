@@ -99,7 +99,7 @@ weight = 1
           "Fresh linen & towel changeover",
           "Restocking guest amenities (e.g., coffee, soap)",
           "Property check for damages or issues",
-          "Tidying and staging for next guest arrival"
+          "Tidying and staging for next guest arrival",
         ]
       [[categories.services.airbnb.bento]]
         type = "cta"

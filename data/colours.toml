@@ -1,0 +1,44 @@
+[green]
+light = "#dcfce7"
+dark  = "#15803d"
+icon  = "#16a34a"
+
+[indigo]
+light = "#e0e7ff"
+dark  = "#4338ca"
+icon  = "#4f46e5"
+
+[rose]
+light = "#ffe4e6"
+dark  = "#be123c"
+icon  = "#e11d48"
+
+[amber]
+light = "#fef3c7"
+dark  = "#b45309"
+icon  = "#d97706"
+
+[blue]
+light = "#dbeafe"
+dark  = "#1d4ed8"
+icon  = "#2563eb"
+
+[purple]
+light = "#ede9fe"
+dark  = "#6d28d9"
+icon  = "#7c3aed"
+
+[lime]
+light = "#ecfccb"
+dark  = "#4d7c0f"
+icon  = "#65a30d"
+
+[teal]
+light = "#ccfbf1"
+dark  = "#0d9488"
+icon  = "#0d9488"
+
+[yellow]
+light = "#fef9c3"
+dark  = "#ca8a04"
+icon  = "#ca8a04"

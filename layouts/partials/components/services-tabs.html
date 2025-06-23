@@ -16,7 +16,6 @@
             <div class="services-tabs__nav-column">
                 {{ range $categories }}
                     <nav id="{{ .key }}-services" class="service-list">
-                        {{/* Create a slice to preserve service keys before sorting */}}
                         {{ $servicesSlice := slice }}
                         {{ range $serviceKey, $serviceData := .services }}
                             {{ $servicesSlice = $servicesSlice | append (dict "key" $serviceKey "data" $serviceData) }}
@@ -44,6 +43,7 @@
                 {{ range $categories }}
                     {{ $categoryKey := .key }}
                     {{ range $serviceKey, $serviceData := .services }}
+                        {{/* Pass context to the detail panel partial */}}
                         {{ $context := dict "serviceKey" $serviceKey "serviceData" $serviceData "categoryKey" $categoryKey }}
                         {{ partial "components/services/service-detail-panel.html" $context }}
                     {{ end }}
@@ -52,3 +52,159 @@
         </div>
     </div>
 </section>
+
+{{/* NEW: The component's JavaScript is now co-located with its HTML */}}
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const tabsNav = document.getElementById('tabs-nav');
+        if (!tabsNav) return;
+
+        const tabButtons = tabsNav.querySelectorAll('.tab-button');
+        const activeTabIndicator = document.getElementById('active-tab-indicator');
+        const serviceLists = document.querySelectorAll('.service-list');
+        const detailsPanels = document.querySelectorAll('.details-panel');
+        const servicesGrid = document.querySelector('.services-tabs__grid');
+        const backButton = document.querySelector('.details-panel__back-button');
+        const detailsContainer = document.querySelector('.details-container');
+
+        function setIndicator(tab) {
+            if (!tab || !activeTabIndicator) return;
+            activeTabIndicator.style.left = `${tab.offsetLeft}px`;
+            activeTabIndicator.style.width = `${tab.offsetWidth}px`;
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+            tab.classList.add('active');
+        }
+
+        function showDetailsView() {
+            if (window.innerWidth < 768) {
+                servicesGrid.classList.add('is-detail-view');
+            }
+        }
+
+        function hideDetailsView() {
+            servicesGrid.classList.remove('is-detail-view');
+        }
+
+        function switchServicePanel(button) {
+            const currentNav = button.closest('.service-list');
+            if (!currentNav || !currentNav.classList.contains('active')) return;
+
+            currentNav.querySelectorAll('.service-button').forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+
+            const currentlyActivePanel = document.querySelector('.details-panel.active');
+            if (currentlyActivePanel) {
+                detailsContainer.style.minHeight = `${currentlyActivePanel.offsetHeight}px`;
+                currentlyActivePanel.classList.remove('active');
+            }
+
+            const targetPanelId = `${button.dataset.panel}-details`;
+            const targetPanel = document.getElementById(targetPanelId);
+
+            if (targetPanel) {
+                targetPanel.classList.add('active');
+                detailsContainer.style.minHeight = `${targetPanel.offsetHeight}px`;
+            }
+
+            showDetailsView();
+        }
+        
+        function handleTabClick(tab) {
+            setIndicator(tab);
+            const targetListId = `${tab.dataset.tab}-services`;
+            
+            serviceLists.forEach(list => {
+                list.classList.remove('active');
+                if (list.id === targetListId) {
+                    list.classList.add('active');
+                    const firstServiceButton = list.querySelector('.service-button');
+                    if (firstServiceButton) {
+                        switchServicePanel(firstServiceButton);
+                    }
+                }
+            });
+            hideDetailsView();
+        }
+
+        tabButtons.forEach(tab => tab.addEventListener('click', () => handleTabClick(tab)));
+
+        document.querySelectorAll('.service-button').forEach(button => {
+            button.addEventListener('click', () => switchServicePanel(button));
+        });
+
+        if (backButton) {
+            backButton.addEventListener('click', hideDetailsView);
+        }
+        
+        document.querySelectorAll('.share-button').forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if(button.classList.contains('is-copied')) return;
+
+                const tab = button.dataset.tab;
+                const panel = button.dataset.panel;
+                const url = `${window.location.origin}${window.location.pathname}#tab=${tab}&service=${panel}`;
+                
+                navigator.clipboard.writeText(url).then(() => {
+                    const originalIconHTML = button.innerHTML;
+                    button.classList.add('is-copied');
+                    button.innerHTML = `<i class="fa-solid fa-check" style="color: #22c55e;"></i>`;
+                    setTimeout(() => { 
+                        button.innerHTML = originalIconHTML; 
+                        button.classList.remove('is-copied');
+                    }, 2000);
+                }).catch(err => {
+                    console.error('Failed to copy text: ', err);
+                });
+            });
+        });
+
+        document.querySelectorAll('.expand-checklist-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const checklist = button.previousElementSibling;
+                checklist.classList.toggle('expanded');
+                button.textContent = checklist.classList.contains('expanded') ? 'Show less' : 'Show all...';
+            });
+        });
+        
+        function handleDeepLink() {
+            if (window.location.hash) {
+                try {
+                    const params = new URLSearchParams(window.location.hash.substring(1));
+                    const tab = params.get('tab');
+                    const service = params.get('service');
+
+                    if (tab) {
+                        const targetTab = document.querySelector(`.tab-button[data-tab="${tab}"]`);
+                        if (targetTab) handleTabClick(targetTab);
+                    }
+                    if (service) {
+                        const targetServiceButton = document.querySelector(`.service-button[data-panel="${service}"]`);
+                        if (targetServiceButton) {
+                            setTimeout(() => {
+                                switchServicePanel(targetServiceButton);
+                                showDetailsView();
+                            }, 100); 
+                        }
+                    }
+                } catch (e) {
+                    console.error("Error parsing URL hash", e);
+                }
+            } else {
+                 const initialActiveTab = tabsNav.querySelector('.tab-button');
+                 if (initialActiveTab) handleTabClick(initialActiveTab);
+                 hideDetailsView();
+            }
+        }
+
+        handleDeepLink();
+        window.addEventListener('hashchange', handleDeepLink, false);
+
+        window.addEventListener('resize', () => {
+            const activeTab = tabsNav.querySelector('.tab-button.active');
+            if (activeTab) {
+                setTimeout(() => setIndicator(activeTab), 100);
+            }
+        });
+    });
+</script>

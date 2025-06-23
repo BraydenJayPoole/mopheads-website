@@ -3,17 +3,35 @@
 {{ $serviceKey := .serviceKey }}
 {{ $categoryKey := .categoryKey }}
 
-<div id="{{ $serviceKey }}-details" class="details-panel">
+
+
+{{/* Define the color map directly or pull from a new data file e.g., data/colors.toml */}}
+{{ $colorMap := dict
+  "green"   (dict "light" "#dcfce7" "dark" "#15803d" "icon" "#16a34a")
+  "indigo"  (dict "light" "#e0e7ff" "dark" "#4338ca" "icon" "#4f46e5")
+  "rose"    (dict "light" "#ffe4e6" "dark" "#be123c" "icon" "#e11d48")
+  "amber"   (dict "light" "#fef3c7" "dark" "#b45309" "icon" "#d97706")
+  "blue"    (dict "light" "#dbeafe" "dark" "#1d4ed8" "icon" "#2563eb")
+  "purple"  (dict "light" "#ede9fe" "dark" "#6d28d9" "icon" "#7c3aed")
+  "lime"    (dict "light" "#ecfccb" "dark" "#4d7c0f" "icon" "#65a30d")
+  "teal"    (dict "light" "#ccfbf1" "dark" "#0d9488" "icon" "#0d9488")
+  "yellow"  (dict "light" "#fef9c3" "dark" "#ca8a04" "icon" "#ca8a04")
+}}
+
+
+
+
+{{/* Get the color set for the current service, with a fallback to indigo */}}
+{{ $colorName := $service.icon_color | default "indigo" }}
+{{ $colorSet := index $colorMap $colorName }}
+
+
+{{/* Set the CSS variables for this panel using an inline style */}}
+<div id="{{ $serviceKey }}-details" class="details-panel" style="--card-color: {{ $colorSet.dark }}; --card-bg-light: {{ $colorSet.light }}; --card-icon-color: {{ $colorSet.icon }};">
     <div class="bento-grid">
-        {{/* Loop through the bento array defined in the service's data */}}
         {{ with $service.bento }}
             {{ range . }}
-                {{/* Merge the card's specific data (like 'type', 'title', 'items') 
-                  with the overall service context (like 'icon_color', 'type', etc.)
-                */}}
                 {{ $cardContext := merge . (dict "service" $service "serviceKey" $serviceKey "categoryKey" $categoryKey) }}
-                
-                {{/* Dynamically call the partial based on the card's 'type' */}}
                 {{ partial (printf "components/bento/cards/%s.html" .type) $cardContext }}
             {{ end }}
         {{ else }}
