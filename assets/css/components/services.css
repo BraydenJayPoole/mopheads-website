@@ -132,12 +132,17 @@
 .service-button:hover {
     background-color: #f3f4f6;
 }
-.service-button.active {
-    background-color: var(--color-primary) !important;
-    color: white;
-    transform: scale(1.03);
-    box-shadow: 0 5px 20px rgba(0,0,0,0.07);
+
+
+@media (min-width: 768px) {
+    .service-button.active {
+        background-color: var(--color-primary) !important;
+        color: white;
+        transform: scale(1.03);
+        box-shadow: 0 5px 20px rgba(0,0,0,0.07);
+    }
 }
+
 .service-button__title {
     display: block;
 }
@@ -146,8 +151,12 @@
     font-size: 0.875rem;
     color: #6b7280;
 }
-.service-button.active .service-button__tagline {
-    color: rgba(255,255,255,0.8);
+
+
+@media (min-width: 768px) {
+    .service-button.active .service-button__tagline {
+        color: rgba(255,255,255,0.8);
+    }
 }
 
 .details-container {
@@ -163,15 +172,21 @@
 }
 
 .details-panel {
-    display: none;
+    opacity: 0;
+    visibility: hidden;
+    position: absolute; 
+    top: 0;
+    left: 0;
     width: 100%;
-    /* --- NEW: Define CSS variables for the cards inside this panel --- */
+    transition: opacity 0.3s ease-in-out, visibility 0.3s;
     --card-color: #4338ca;      /* Default: indigo-dark */
     --card-bg-light: #e0e7ff;   /* Default: indigo-light */
     --card-icon-color: #4f46e5; /* Default: indigo-icon */
 }
 .details-panel.active {
-    display: block;
+    opacity: 1;
+    visibility: visible;
+    position: relative;
 }
 
 .bento-grid {
@@ -183,8 +198,8 @@
 
 .bento-card {
     opacity: 0;
-    transform: translateY(25px) scale(0.98);
-    transition: transform 0.5s cubic-bezier(0.2, 1, 0.3, 1), opacity 0.4s ease, background-color 0.3s ease;
+    transform: translateY(30px) scale(0.95);
+    transition: transform 0.6s cubic-bezier(0.2, 1, 0.3, 1), opacity 0.5s ease;
     border-radius: 1rem;
     padding: 1.5rem;
     border: 1px solid #f3f4f6;
@@ -222,14 +237,12 @@
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    /* --- NEW: Use CSS variable for background color --- */
     background-color: var(--card-bg-light);
 }
 
 .bento-card__icon {
     font-size: 1.75rem; 
     line-height: 1;      
-    /* --- NEW: Use CSS variable for icon color --- */
     color: var(--card-icon-color);
 }
 
@@ -242,7 +255,6 @@
 .bento-card__tagline, 
 .bento-card__details-link,
 .expand-checklist-btn {
-    /* --- NEW: Use CSS variable for text color --- */
     color: var(--card-color);
 }
 .bento-card__tagline {
@@ -279,6 +291,7 @@
     font-weight: 600;
     color: #3a3a3a;
     margin-bottom: 0.75rem;
+    margin-top: 1rem;
 }
 .bento-card__text {
     font-size: 0.875rem;
@@ -351,6 +364,9 @@
         flex-direction: column;
         padding: 0;
     }
+    .service-list{
+        width: calc(100% - 2rem);
+    }
     .services-tabs__header {
         padding: 1rem 1rem 0 1rem;
     }
@@ -368,7 +384,7 @@
     .services-tabs__nav-column,
     .details-container {
         position: absolute;
-        width: 100%;
+        width: calc(100% - 2rem);
         top: 0;
         left: 0;
         padding: 0 1rem 1rem 1rem;
@@ -397,12 +413,9 @@
         transform: translateX(100%);
     }
     .services-tabs__grid.is-detail-view .services-tabs__nav-column {
-        transform: translateX(-100%);
+        transform: translateX(-120%);
     }
     .services-tabs__grid.is-detail-view .details-container {
         transform: translateX(0);
     }
 }
-
-/* --- DELETED --- */
-/* The long list of color helper classes has been removed. */
