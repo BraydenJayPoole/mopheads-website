@@ -1,0 +1,17 @@
+<section class="service-checklist-section">
+  <div class="content-wrapper">
+    <h2 class="section-heading">Our Comprehensive End-of-Lease Checklist</h2>
+    <div class="checklist-grid">
+      {{ range $category, $tasks := . }}
+        <div class="checklist-category">
+          <h3 class="checklist-category__title">{{ humanize $category }}</h3>
+          <ul class="checklist">
+            {{ range $tasks }}
+              <li class="checklist__item"><i class="checklist__icon fa-solid fa-check"></i><span>{{ . }}</span></li>
+            {{ end }}
+          </ul>
+        </div>
+      {{ end }}
+    </div>
+  </div>
+</section>

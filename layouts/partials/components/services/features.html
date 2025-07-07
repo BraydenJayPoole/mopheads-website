@@ -1,0 +1,16 @@
+<section class="service-features-section">
+  <div class="content-wrapper">
+    <h2 class="section-heading">Our Promise to You</h2>
+    <div class="features-grid">
+      {{ range . }}
+        <div class="feature-card">
+          <div class="feature-card__icon-wrapper">
+            <i class="feature-card__icon {{ .icon }}"></i>
+          </div>
+          <h3 class="feature-card__title">{{ .title }}</h3>
+          <p class="feature-card__description">{{ .description }}</p>
+        </div>
+      {{ end }}
+    </div>
+  </div>
+</section>

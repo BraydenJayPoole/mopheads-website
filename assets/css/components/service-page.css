@@ -1,0 +1,131 @@
+{{< assets/css/components/service-page.css >}}
+/* Service Page Hero */
+.service-hero {
+  background-color: var(--service-color);
+  color: white;
+  padding: 5rem 1rem 6rem 1rem;
+  text-align: center;
+}
+
+.service-hero__title {
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.service-hero__tagline {
+  font-size: clamp(1.1rem, 2.5vw, 1.25rem);
+  max-width: 600px;
+  margin: 0 auto 2.5rem auto;
+  opacity: 0.95;
+}
+
+.service-hero__cta {
+  background-color: white;
+  color: var(--service-color);
+  padding: 0.85rem 2.25rem;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 700;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: var(--shadow-elevation-medium);
+}
+
+.service-hero__cta:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-elevation-high);
+}
+
+/* Generic Section Styles */
+.section-heading {
+  text-align: center;
+  font-size: clamp(1.8rem, 4vw, 2.25rem);
+  margin-bottom: 3rem;
+  color: var(--raisin-black);
+}
+
+.service-page-content {
+  padding: 3rem 0;
+  line-height: 1.7;
+  font-size: 1.1rem;
+}
+
+/* Features Section */
+.service-features-section {
+  padding: 4rem 1rem;
+  background-color: #F4EADF; /* Slightly darker than old-lace */
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.feature-card {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 1rem;
+  text-align: center;
+  box-shadow: var(--shadow-elevation-low);
+  border: 1px solid #E5E7EB;
+}
+
+.feature-card__icon-wrapper {
+  margin-bottom: 1.5rem;
+}
+
+.feature-card__icon {
+  font-size: 2.5rem;
+  color: var(--cinnabar);
+}
+
+.feature-card__title {
+  font-size: 1.25rem;
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+}
+
+/* Checklist Section */
+.service-checklist-section {
+  padding: 4rem 1rem;
+}
+
+.checklist-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem 3rem;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.checklist-category__title {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--cinnabar);
+  display: inline-block;
+}
+
+/* Re-using checklist styles from services.css */
+
+/* Final CTA section */
+.service-page-cta {
+  padding: 4rem 1rem;
+  background-color: var(--old-lace);
+  text-align: center;
+}
+
+.service-page-cta__heading {
+  font-size: clamp(1.8rem, 4vw, 2.25rem);
+  margin-bottom: 0.5rem;
+}
+
+.service-page-cta__subheading {
+  margin-bottom: 2rem;
+  font-size: 1.1rem;
+  color: var(--raisin-black-light);
+}

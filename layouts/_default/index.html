@@ -4,9 +4,11 @@
 <div class="landing">
   {{ partial "component.html" (dict "name" "components/mopheads__logo_text" "context" .) }}
   <div></div>
-  {{ partial "component.html" (dict "name" "components/quote-form" "context" .) }}
+  
+  {{ partial "components/social-bar.html" . }}
 </div>
 {{ partial "components/rive-hero.html" . }}
+{{ partial "component.html" (dict "name" "components/quote-form" "context" .) }}
 
 {{/* --- Service Tabs Section --- */}}
 {{ partial "components/services-tabs.html" . }}
