@@ -1,0 +1,121 @@
+{{/* layouts/partials/components/booking-modal.html */}}
+<div id="booking-modal-overlay" class="booking-modal__overlay is-hidden">
+  <div class="booking-modal__content">
+    <button id="booking-modal-close-btn" class="booking-modal__close-btn" aria-label="Close booking form">&times;</button>
+    <div class="booking-modal__header">
+      <h2 class="booking-modal__title">Request a Quote</h2>
+      <p class="booking-modal__subtitle">Please fill out the details below and we'll get back to you shortly.</p>
+    </div>
+
+    <form name="booking-inquiry" class="booking-modal__form" method="POST" data-netlify="true">
+      <input type="hidden" name="form-name" value="booking-inquiry" />
+
+      <div class="form-group form-group--half">
+        <label for="given-name">Given Name</label>
+        <input type="text" id="given-name" name="given-name" required>
+      </div>
+
+      <div class="form-group form-group--half">
+        <label for="surname">Surname</label>
+        <input type="text" id="surname" name="surname" required>
+      </div>
+
+      <div class="form-group">
+        <label for="booking-service">Service</label>
+        <select id="booking-service" name="service" required>
+          <option value="Domestic">Domestic</option>
+          <option value="Deep Clean">Deep Clean</option>
+          <option value="End-of-Lease">End-of-Lease</option>
+        </select>
+      </div>
+
+      {{/* Conditional "Reoccurring" field */}}
+      <div id="reoccurring-field-group" class="form-group is-hidden">
+        <label for="reoccurring">Reoccurring?</label>
+        <select id="reoccurring" name="reoccurring">
+          <option value="Weekly">Weekly</option>
+          <option value="Fortnightly">Fortnightly</option>
+          <option value="Monthly">Monthly</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="address">Full Address</label>
+        <input type="text" id="address" name="address" required>
+      </div>
+      
+      <div class="form-group form-group--half">
+        <label for="booking-bedrooms">Bedrooms</label>
+        <select id="booking-bedrooms" name="bedrooms" required>
+          <option value="1">1 Bedroom</option>
+          <option value="2">2 Bedrooms</option>
+          <option value="3">3 Bedrooms</option>
+          <option value="4">4 Bedrooms</option>
+          <option value="5">5+ Bedrooms</option>
+        </select>
+      </div>
+
+      <div class="form-group form-group--half">
+        <label for="booking-bathrooms">Bathrooms</label>
+        <select id="booking-bathrooms" name="bathrooms" required>
+          <option value="1">1 Bathroom</option>
+          <option value="2">2 Bathrooms</option>
+          <option value="3">3 Bathrooms</option>
+          <option value="4">4+ Bathrooms</option>
+        </select>
+      </div>
+      
+      <div class="form-group">
+          <label>Do you have pets?</label>
+          <div class="form-group--radio-group">
+              <label for="pets-yes">
+                  <input type="radio" id="pets-yes" name="pets" value="yes" required> Yes
+              </label>
+              <label for="pets-no">
+                  <input type="radio" id="pets-no" name="pets" value="no"> No
+              </label>
+          </div>
+      </div>
+
+      <div class="form-group">
+        <label for="preferred-date">Preferred Date</label>
+        <input type="date" id="preferred-date" name="preferred-date">
+      </div>
+
+      <div class="form-group form-group--half">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" name="email" required>
+      </div>
+
+      <div class="form-group form-group--half">
+        <label for="phone">Phone Number</label>
+        <input type="tel" id="phone" name="phone">
+      </div>
+      
+      <div class="form-group form-group--full-width">
+        <button type="submit" class="booking-modal__submit-btn">Submit Request</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const serviceSelect = document.getElementById('booking-service');
+    const reoccurringGroup = document.getElementById('reoccurring-field-group');
+
+    const handleServiceChange = () => {
+        const selectedService = serviceSelect.value;
+        if (selectedService === 'Domestic' || selectedService === 'Deep Clean') {
+            reoccurringGroup.classList.remove('is-hidden');
+        } else {
+            reoccurringGroup.classList.add('is-hidden');
+        }
+    };
+
+    serviceSelect.addEventListener('change', handleServiceChange);
+
+    // Also call it once on load in case of autofill
+    handleServiceChange();
+});
+</script>

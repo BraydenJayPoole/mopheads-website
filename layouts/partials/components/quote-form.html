@@ -54,68 +54,110 @@
     </div>
   </form>
 </div>
-<p class="quote-form-help"><a href="#help">Need Help Choosing a Clean Type?</a></p>
+<p class="quote-form-help"><a href="#services-tabs-section" id="help-link">Need Help Choosing a Clean Type?</a></p>
 
 </div>
 </section>
 
 <script>
-  // Embed pricing data from Hugo's data file
-  const pricingDataJSONString = {{ site.Data.pricing | jsonify }};
-  const pricingData = JSON.parse(pricingDataJSONString);
+  document.addEventListener('DOMContentLoaded', () => {
+    // Pricing Data
+    const pricingDataJSONString = {{ site.Data.pricing | jsonify }};
+    const pricingData = JSON.parse(pricingDataJSONString);
 
-  // Get references (IDs match the form above)
-  const serviceSelect = document.getElementById('service-type');
-  const bathSelect = document.getElementById('bathrooms');
-  const bedSelect = document.getElementById('bedrooms');
-  // Get reference to the button now
-  const quoteButton = document.getElementById('quote-book-button');
-  // Keep priceDisplay reference if you still want it hidden, otherwise remove
-  const priceDisplay = document.getElementById('price-display');
+    // Quote Form Elements
+    const serviceSelect = document.getElementById('service-type');
+    const bathSelect = document.getElementById('bathrooms');
+    const bedSelect = document.getElementById('bedrooms');
+    const quoteButton = document.getElementById('quote-book-button');
+    const priceDisplay = document.getElementById('price-display');
+    const helpLink = document.getElementById('help-link');
 
+    // Modal Elements
+    const modalOverlay = document.getElementById('booking-modal-overlay');
+    const modalCloseBtn = document.getElementById('booking-modal-close-btn');
+    const modalServiceSelect = document.getElementById('booking-service');
+    const modalBedSelect = document.getElementById('booking-bedrooms');
+    const modalBathSelect = document.getElementById('booking-bathrooms');
+    const reoccurringGroup = document.getElementById('reoccurring-field-group');
 
-  // Function to update the price **AND BUTTON TEXT**
-  function updatePrice() {
-    const serviceType = serviceSelect.value;
-    const baths = bathSelect.value;
-    const beds = bedSelect.value;
-    const priceKey = `${baths}-${beds}`;
+    // Function to update the price and button text
+    function updatePrice() {
+      const serviceType = serviceSelect.value;
+      const baths = bathSelect.value;
+      const beds = bedSelect.value;
+      const priceKey = `${beds}-${baths}`;
 
-    console.log('Checking:', serviceType, 'Key:', priceKey, 'Data slice:', pricingData[serviceType]);
+      let price = null;
 
-    let price = null; // Use null to indicate not found
-
-    if (pricingData[serviceType] && pricingData[serviceType][priceKey]) {
-      price = pricingData[serviceType][priceKey];
-      // Update the button's text content
-      quoteButton.innerHTML = `Book From <span class="dollar-sign">$</span><span class="price">${price}</span> \u2192`; // \u2192 is the right arrow
-      // Optionally update the hidden span if needed elsewhere
-      if (priceDisplay) priceDisplay.textContent = price;
-    } else {
-      // Update button text when no price is found
-      quoteButton.textContent = "Get Quote \u2192";
-      if (priceDisplay) priceDisplay.textContent = "Quote Required";
+      if (pricingData[serviceType] && pricingData[serviceType][priceKey]) {
+        price = pricingData[serviceType][priceKey];
+        quoteButton.innerHTML = `Book From <span class="dollar-sign">$</span><span class="price">${price}</span> &rarr;`;
+        if (priceDisplay) priceDisplay.textContent = price;
+      } else {
+        quoteButton.textContent = "Request Quote →";
+        if (priceDisplay) priceDisplay.textContent = "Quote Required";
+      }
     }
-  }
+    
+    // --- Modal Logic ---
+    function openModal() {
+        modalServiceSelect.value = serviceSelect.value;
+        modalBedSelect.value = bedSelect.value;
+        modalBathSelect.value = bathSelect.value;
+        modalServiceSelect.dispatchEvent(new Event('change'));
+        
+        if (modalOverlay) {
+            modalOverlay.classList.remove('is-hidden');
+            modalOverlay.classList.add('is-visible');
+            document.body.style.overflow = 'hidden'; 
+        }
+    }
 
-  // Add event listeners
-  serviceSelect.addEventListener('change', updatePrice);
-  bathSelect.addEventListener('change', updatePrice);
-  bedSelect.addEventListener('change', updatePrice);
+    function closeModal() {
+        if (modalOverlay) {
+            modalOverlay.classList.remove('is-visible');
+            modalOverlay.classList.add('is-hidden');
+            document.body.style.overflow = '';
+        }
+    }
+    
+    // --- Smooth Scroll for Help Link ---
+    function smoothScrollToHelp(event) {
+        event.preventDefault();
+        const targetId = helpLink.getAttribute('href');
+        const targetSection = document.querySelector(targetId);
 
-  // Initial price calculation on page load
-  if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', updatePrice);
-  } else {
-      updatePrice(); // Call immediately if DOM is already loaded
-  }
+        if (targetSection) {
+            targetSection.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    }
 
-  // Optional: Add functionality when the button is clicked
-  quoteButton.addEventListener('click', () => {
-    // Add logic here - e.g., redirect to a booking page, open a modal
-    console.log('Booking action triggered for:', serviceSelect.value, bathSelect.value, bedSelect.value);
-    // Example redirect (update URL as needed):
-    // window.location.href = '/booking';
+    // --- Event Listeners ---
+    serviceSelect.addEventListener('change', updatePrice);
+    bathSelect.addEventListener('change', updatePrice);
+    bedSelect.addEventListener('change', updatePrice);
+    helpLink.addEventListener('click', smoothScrollToHelp);
+
+    // Modal Listeners
+    quoteButton.addEventListener('click', openModal);
+    if(modalCloseBtn) modalCloseBtn.addEventListener('click', closeModal);
+    if(modalOverlay) modalOverlay.addEventListener('click', (event) => {
+        if (event.target === modalOverlay) {
+            closeModal();
+        }
+    });
+    
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && modalOverlay && modalOverlay.classList.contains('is-visible')) {
+            closeModal();
+        }
+    });
+
+    // Initial price calculation
+    updatePrice();
   });
-
 </script>

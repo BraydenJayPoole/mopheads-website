@@ -746,7 +746,6 @@ body {
   @media (max-width: 768px) { /* Adjust breakpoint as needed */
     .landing{
       margin-top: 0;
-      height: 200vh;
       grid-template-rows: 50vh 50vh 100vh;
     }
     #mopheads__logo_text{

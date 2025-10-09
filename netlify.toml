@@ -1,0 +1,17 @@
+# netlify.toml
+
+[build]
+  # This is the command Netlify will run to build your site.
+  command = "hugo --gc --minify"
+  # This is the directory Netlify will publish after the build. Hugo's default is "public".
+  publish = "public"
+  # This is the directory where your serverless functions live.
+  functions = "netlify/functions"
+
+[build.environment]
+  # Specify the Hugo version. It's good practice to match the version you use locally.
+  HUGO_VERSION = "0.134.3" # Replace with your version of Hugo
+
+[context.production.environment]
+  HUGO_ENV = "production"
+  HUGO_ENABLE_GIT_INFO = "true"
