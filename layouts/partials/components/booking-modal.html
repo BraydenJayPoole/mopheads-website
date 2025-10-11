@@ -8,21 +8,26 @@
     </div>
 
     <form name="booking-inquiry" class="booking-modal__form" method="POST" netlify>
+      <!-- This hidden input is required for Netlify to identify the form -->
       <input type="hidden" name="form-name" value="booking-inquiry" />
+      
+      <!-- The new hidden input for the dynamic subject. We give it an ID to target it with JavaScript -->
+      <input type="hidden" name="subject" id="dynamic-subject-line" value="New Booking Inquiry" />
 
       <div class="form-group form-group--half">
         <label for="given-name">Given Name</label>
-        <input type="text" id="given-name" name="given-name" required>
+        <!-- We add the 'data-subject-field' attribute to easily identify inputs that should trigger an update -->
+        <input type="text" id="given-name" name="given-name" required data-subject-field>
       </div>
 
       <div class="form-group form-group--half">
         <label for="surname">Surname</label>
-        <input type="text" id="surname" name="surname" required>
+        <input type="text" id="surname" name="surname" required data-subject-field>
       </div>
 
       <div class="form-group">
         <label for="booking-service">Service</label>
-        <select id="booking-service" name="service" required>
+        <select id="booking-service" name="service" required data-subject-field>
           <option value="Domestic">Domestic</option>
           <option value="Deep Clean">Deep Clean</option>
           <option value="End-of-Lease">End-of-Lease</option>
@@ -46,7 +51,7 @@
       
       <div class="form-group form-group--half">
         <label for="booking-bedrooms">Bedrooms</label>
-        <select id="booking-bedrooms" name="bedrooms" required>
+        <select id="booking-bedrooms" name="bedrooms" required data-subject-field>
           <option value="1">1 Bedroom</option>
           <option value="2">2 Bedrooms</option>
           <option value="3">3 Bedrooms</option>
@@ -57,7 +62,7 @@
 
       <div class="form-group form-group--half">
         <label for="booking-bathrooms">Bathrooms</label>
-        <select id="booking-bathrooms" name="bathrooms" required>
+        <select id="booking-bathrooms" name="bathrooms" required data-subject-field>
           <option value="1">1 Bathroom</option>
           <option value="2">2 Bathrooms</option>
           <option value="3">3 Bathrooms</option>
@@ -69,17 +74,17 @@
           <label>Do you have pets?</label>
           <div class="form-group--radio-group">
               <label for="pets-yes">
-                  <input type="radio" id="pets-yes" name="pets" value="yes" required> Yes
+                  <input type="radio" id="pets-yes" name="pets" value="yes" required> <span>Yes</span>
               </label>
               <label for="pets-no">
-                  <input type="radio" id="pets-no" name="pets" value="no"> No
+                  <input type="radio" id="pets-no" name="pets" value="no"> <span>No</span>
               </label>
           </div>
       </div>
 
       <div class="form-group">
         <label for="preferred-date">Preferred Date</label>
-        <input type="date" id="preferred-date" name="preferred-date">
+        <input type="date" id="preferred-date" name="preferred-date" data-subject-field>
       </div>
 
       <div class="form-group form-group--half">
@@ -96,13 +101,43 @@
         <button type="submit" class="booking-modal__submit-btn">Submit Request</button>
       </div>
     </form>
-  </div>
-</div>
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
     const serviceSelect = document.getElementById('booking-service');
     const reoccurringGroup = document.getElementById('reoccurring-field-group');
+
+    // Select all the input/select fields that should trigger a subject update
+    const subjectFields = document.querySelectorAll('[data-subject-field]');
+    
+    // Get a reference to the hidden subject input field
+    const subjectLineInput = document.getElementById('dynamic-subject-line');
+
+    // Define the function that will build and update the subject line
+    const updateSubject = () => {
+      // Get the current values from the form fields
+      const givenName = document.getElementById('given-name').value || 'N/A';
+      const surname = document.getElementById('surname').value || '';
+      const bedrooms = document.getElementById('booking-bedrooms').value;
+      const bathrooms = document.getElementById('booking-bathrooms').value;
+      const service = document.getElementById('booking-service').value;
+      const date = document.getElementById('preferred-date').value || 'No Date';
+      
+      const fullName = `${givenName} ${surname}`.trim();
+      
+      // Construct the desired subject string
+      const newSubject = `${fullName} - Inquiry for ${bedrooms} x ${bathrooms} ${service} Clean on the ${date}`;
+      
+      // Update the value of the hidden input field
+      subjectLineInput.value = newSubject;
+    };
+
+    // Attach an event listener to each of the relevant fields
+    subjectFields.forEach(field => {
+      // 'input' event works for text fields, 'change' for selects and date pickers
+      field.addEventListener('input', updateSubject);
+      field.addEventListener('change', updateSubject);
+    });
 
     const handleServiceChange = () => {
         const selectedService = serviceSelect.value;
@@ -117,5 +152,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Also call it once on load in case of autofill
     handleServiceChange();
+    updateSubject();
 });
 </script>
