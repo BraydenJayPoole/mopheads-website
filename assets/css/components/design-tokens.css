@@ -1,0 +1,217 @@
+/* * ===================================================================
+ * LAYER 1: THE PALETTE (RAW VALUES)
+ * ===================================================================
+ * These are our "raw materials." We don't use these directly in
+ * component CSS. They are just the available "paints."
+ * * We also define RGB-part versions for colors we know
+ * we'll want to use with an alpha channel (e.g., for shadows).
+ */
+:root {
+  /* --- Primary (Brand) --- */
+  --palette-primary-100: #f6aa91; /* Lightest */
+  --palette-primary-200: #f59c7e;
+  --palette-primary-300: #f38d6c;
+  --palette-primary-400: #f27f59;
+  --palette-primary-500: #F07147; /* Base */
+  --palette-primary-600: #d86640;
+  --palette-primary-700: #c05a39; 
+  --palette-primary-800: #a84f32;
+  --palette-primary-900: #90442b; /* Darkest */
+
+    /* --- Secondary (Brand) --- */
+  --palette-secondary-100: #FDF5E6; /* Lightest */
+  --palette-secondary-200: #faecd4;
+  --palette-secondary-300: #f9e9cd;
+  --palette-secondary-400: #f9e7c7;
+  --palette-secondary-500: #f8e4c1; /* Base */
+  --palette-secondary-600: #dfcdae;
+  --palette-secondary-700: #c6b69a; 
+  --palette-secondary-800: #aea087;
+  --palette-secondary-900: #958974; /* Darkest */
+
+  /* --- Neutral (Greys) --- */
+  --palette-neutral-100: #f9fafb;
+  --palette-neutral-200: #e0e1e2;
+  --palette-neutral-300: #c7c8c9;
+  --palette-neutral-400: #aeafb0;
+  --palette-neutral-500: #959697;
+  --palette-neutral-600: #7d7d7e;
+  --palette-neutral-700: #646464;
+  --palette-neutral-800: #4b4b4b;
+  --palette-neutral-900: #323232;
+  
+  --palette-white: #ffffff;
+  --palette-white-rgb: 255, 255, 255;
+  --palette-black: #000000;
+  --palette-black-rgb: 0, 0, 0;
+
+
+  /* --- Status: Danger (Red) --- */
+  --palette-danger-100: #fde8e8;
+  --palette-danger-500: #dc3545;
+  --palette-danger-700: #b02a37;
+
+  /* --- Status: Warning (Yellow) --- */
+  --palette-warning-100: #fff8e6;
+  --palette-warning-500: #ffc107;
+  --palette-warning-700: #cc9a06;
+
+  /* --- Status: Success (Green) --- */
+  --palette-success-100: #e6f9f0;
+  --palette-success-500: #198754;
+  --palette-success-700: #136542;
+}
+
+
+/* * ===================================================================
+ * LAYER 2: THE SEMANTIC LAYER (THE "WHY")
+ * ===================================================================
+ * This is what we use 99% of the time in our application.
+ * It maps the raw palette to a *purpose* or *meaning* based on
+ * the 5 groups you outlined.
+ */
+:root {
+
+  /* --- 1. Text --- */
+  /* For titles, paragraphs, captions, labels, etc. */
+  
+  --color-text-primary:          var(--palette-neutral-900); /* Main headings and body text */
+
+  --color-text-secondary:        var(--palette-neutral-700); /* Sub-headings, descriptions, supporting text */
+
+  --color-text-tertiary:         var(--palette-neutral-600); /* Placeholders, disabled text */
+  --color-text-tertiary-hover:   var(--palette-neutral-900);
+
+  --color-text-accent:           var(--palette-primary-500); /* Links, accent text */
+
+  --color-text-on-accent:        var(--palette-white);       /* Text on a primary-colored background */
+  
+  --color-text-danger:           var(--palette-danger-700);  /* Error messages */
+  --color-text-warning:          var(--palette-warning-700); /* Warning messages */
+  --color-text-success:          var(--palette-success-700); /* Success messages */
+
+
+  /* --- 2. Fill --- */
+  /* For button containers, icons, checkboxes, toggles, etc. */
+  
+  --color-fill-primary:          var(--palette-primary-500); /* Primary buttons, active toggles, main icons */
+  --color-fill-primary-hover:    var(--palette-primary-600); /* Hover state for primary fills */
+  --color-fill-primary-pressed:  var(--palette-primary-700); /* Pressed state for primary fills */
+  
+  --color-fill-secondary:        var(--palette-neutral-100); /* Secondary buttons, "ghost" button backgrounds */
+  --color-fill-secondary-hover:  var(--palette-neutral-200); /* Hover for secondary */
+  
+  --color-fill-tertiary:         var(--palette-neutral-300); /* Disabled button backgrounds */
+  --color-fill-accent:           var(--palette-primary-100); /* Light "info" backgrounds, subtle highlights */
+
+  --color-fill-danger:           var(--palette-danger-500);  /* Danger buttons, error icons */
+  --color-fill-danger-hover:     var(--palette-danger-700);
+  --color-fill-warning:          var(--palette-warning-500); /* Warning icons */
+  --color-fill-success:          var(--palette-success-500); /* Success icons */
+  
+
+  /* --- 3. Stroke --- */
+  /* For input borders, dividers, card borders, etc. */
+
+  --color-stroke-primary:   var(--palette-neutral-400); /* Default borders (inputs, cards) */
+  --color-stroke-secondary: var(--palette-neutral-300); /* Dividers */
+  --color-stroke-tertiary:  var(--palette-neutral-200); /* Subtle borders */
+  --color-stroke-focus:     var(--palette-primary-500); /* Focus rings on inputs, buttons */
+
+  --color-stroke-danger:    var(--palette-danger-500);  /* Error input borders */
+  --color-stroke-warning:   var(--palette-warning-500); /* Warning borders */
+  --color-stroke-success:   var(--palette-success-500); /* Success borders */
+
+
+  /* --- 4. Layer --- */
+  /* For page backgrounds, cards, popups, overlays, etc. */
+
+  --color-layer-0:      var(--palette-secondary-100);  /* Base page background */
+  --color-layer-1:      var(--palette-white);        /* Cards, sidebars, "next level up" */
+  --color-layer-2:      var(--palette-white);        /* Modals, popups, dropdowns */
+  --color-layer-overlay: rgba(var(--palette-neutral-900-rgb), 0.4); /* Scrim/backdrop for modals */
+
+  /* Informational "banner" backgrounds */
+  --color-layer-danger:   var(--palette-danger-100);
+  --color-layer-warning:  var(--palette-warning-100);
+  --color-layer-success:  var(--palette-success-100);
+  --color-layer-info:     var(--palette-primary-100);
+
+  
+  /* --- 5. Effect --- */
+  /* For shadows, touch feedback ripples, etc. */
+  
+  /* We define the *colors* first */
+  --color-effect-shadow:    rgba(var(--palette-neutral-900-rgb), 0.1);
+  --color-effect-shadow-hi: rgba(var(--palette-neutral-900-rgb), 0.2);
+  --color-effect-ripple:    rgba(var(--palette-black-rgb), 0.1);
+  
+  /* Then we define the full *properties* using those colors.
+     This is often cleaner than just having the color alone. */
+  --effect-shadow-sm: 0 1px 2px var(--color-effect-shadow);
+  --effect-shadow-md: 0 4px 8px var(--color-effect-shadow), 
+                      0 1px 3px var(--color-effect-shadow);
+  --effect-shadow-lg: 0 10px 20px var(--color-effect-shadow-hi), 
+                      0 4px 8px var(--color-effect-shadow);
+}
+
+
+/* * ===================================================================
+ * EXAMPLE: DARK THEME
+ * ===================================================================
+ * We just re-map the SEMANTIC tokens. All our component CSS
+ * (e.g., `color: var(--color-text-primary)`) stays identical.
+ */
+[data-theme="dark"] {
+  /* --- 1. Text --- */
+  --color-text-primary:    var(--palette-neutral-100);
+  --color-text-secondary:  var(--palette-neutral-300);
+  --color-text-tertiary:   var(--palette-neutral-500);
+  --color-text-accent:     var(--palette-primary-400);
+  --color-text-on-accent:  var(--palette-neutral-900);
+  
+  --color-text-danger:     var(--palette-danger-100);
+  --color-text-warning:    var(--palette-warning-100);
+  --color-text-success:    var(--palette-success-100);
+
+  /* --- 2. Fill --- */
+  --color-fill-primary:          var(--palette-primary-500);
+  --color-fill-primary-hover:    var(--palette-primary-400);
+  --color-fill-primary-pressed:  var(--palette-primary-300);
+  
+  --color-fill-secondary:        var(--palette-neutral-800);
+  --color-fill-secondary-hover:  var(--palette-neutral-700);
+  
+  --color-fill-tertiary:         var(--palette-neutral-700);
+  --color-fill-accent:           var(--palette-neutral-800);
+
+  /* --- 3. Stroke --- */
+  --color-stroke-primary:   var(--palette-neutral-700);
+  --color-stroke-secondary: var(--palette-neutral-800);
+  --color-stroke-tertiary:  var(--palette-neutral-900);
+  --color-stroke-focus:     var(--palette-primary-400);
+
+  /* --- 4. Layer --- */
+  --color-layer-0:      var(--palette-neutral-900);  /* Base page */
+  --color-layer-1:      var(--palette-neutral-800);  /* Cards */
+  --color-layer-2:      var(--palette-neutral-700);  /* Modals */
+  --color-layer-overlay: rgba(var(--palette-black-rgb), 0.6);
+
+  /* Informational "banner" backgrounds (darker, more saturated) */
+  --color-layer-danger:   #5b1a21;
+  --color-layer-warning:  #664d03;
+  --color-layer-success:  #0a3622;
+  --color-layer-info:     #002459;
+
+  /* --- 5. Effect --- */
+  --color-effect-shadow:    rgba(var(--palette-black-rgb), 0.2);
+  --color-effect-shadow-hi: rgba(var(--palette-black-rgb), 0.4);
+  --color-effect-ripple:    rgba(var(--palette-white-rgb), 0.1);
+
+  /* Shadows can be redefined if needed, e.g., to be more subtle */
+  --effect-shadow-sm: 0 1px 2px var(--color-effect-shadow);
+  --effect-shadow-md: 0 4px 8px var(--color-effect-shadow), 
+                      0 1px 3px var(--color-effect-shadow);
+  --effect-shadow-lg: 0 10px 20px var(--color-effect-shadow-hi), 
+                      0 4px 8px var(--color-effect-shadow);
+}

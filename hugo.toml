@@ -1,7 +1,7 @@
 # Corrected hugo.toml
 baseurl = "http://localhost:1313/"
 languageCode = "en-us"
-title = "My Hugo Site"
+title = "Mopheads"
 
 [build]
   # This tells Hugo to generate hugo_stats.json, which PurgeCSS needs.

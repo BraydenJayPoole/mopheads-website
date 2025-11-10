@@ -1,10 +1,10 @@
 :root {
-  --old-lace: #F8F0E3;
+  --old-lace: #F8E4C1;
   --cinnabar: #DA5537;
   --space-cadet: #202C59;
   --myrtle-green: #297373;
   --smoky-black: #0F0A0A;
-  --color-primary: #E56338;
+  --color-primary: #F07147;
 
   --shadow-color: 39deg 36% 62%;
   --shadow-elevation-low:
@@ -50,8 +50,8 @@ html{
 }
 
 h1{
-  font-size: 5.61rem;
-  color: var(--cinnabar);
+  font-size: 2.986rem;
+  color: var(--color-text-accent);
   font-family: "cooperBlack", sans-serif;
 }
 
@@ -315,8 +315,8 @@ body {
   }
   
   .header__cta-button {
-    background-color: #F07147;
-    color: var(--old-lace);
+    background-color: var(--color-fill-primary);
+    color: var(--color-text-on-accent);
     border: none;
     padding: 0.7rem 1.2rem;
     border-radius: 0.5rem;
@@ -339,14 +339,17 @@ body {
   .header__nav-link {
     text-decoration: none;
     color: #73281D;
-    font-weight: semibold;
     display: block;
     padding: 0.5rem 1rem;
   }
   
-  .header__nav-item.active > .header__nav-link, /* Active top-level link */
-  .header__nav-subitem.active > .header__nav-link { /* Active sub-menu link */
+  .header__nav-item.active > .header__nav-link{
     font-weight: bold;
+  } /* Active top-level link */
+  .header__nav-subitem.active > .header__nav-link { /* Active sub-menu link */
+    
+    background-color: var(--color-fill-primary);
+    color: var(--color-text-on-accent);
   }
   
   .header__nav-sublist {
@@ -354,26 +357,41 @@ body {
     position: absolute;
     top: 100%;
     left: 0;
-    background-color: var(--old-lace);
+    background-color: var(--color-layer-1);
     border: 1px solid #ccc;
-    padding: 0.5rem 0;
+    padding: 0.25rem;
     list-style: none;
     margin: 0;
     min-width: 150px;
     z-index: 10;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    
   }
-  
+
   .header__nav-subitem {
-    padding: 0.5rem 1rem;
+    box-shadow: var(--shadow-elevation-low);
   }
   
   .header__nav-subitem a {
     display: block;
+    color: var(--palette-neutral-900);
   }
   
   .header__nav-sublist li:hover {
-    background-color: var(--old-lace);
+    background-color: var(--color-fill-secondary);
+  }
+
+  .header__nav-sublist li a{
+    transition: padding 0.3s ease-in-out;
+    white-space: nowrap;
+    padding-left: 1rem;
+    padding-right: 1.5rem;
+  }
+
+  .header__nav-sublist li:hover a{
+    padding-left: 1.5rem;
+    padding-right: 1rem;
+    color: var(--color-text-accent);
   }
   
   .header__nav-item:hover .header__nav-sublist {
@@ -502,7 +520,7 @@ body {
   right: 0; /* Make it full width */
   width: 100%;
   max-height: calc(100vh - 60px); /* Example: Max height minus approx header height */
-  background-color: var(--old-lace); /* Use theme background */
+  background-color: var(--color-layer-1); /* Use theme background */
   padding: 1rem 1.5rem 2rem; /* Adjust padding */
   box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Shadow below */
   z-index: 1000;

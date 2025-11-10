@@ -1,0 +1,33 @@
+{{ define "main" }}
+  {{/* Service Page Hero */}}
+  {{ partial "components/services/hero.html" . }}
+
+  <div class="content-wrapper content-wrapper--narrow">
+    <div class="service-page-content">
+      {{ .Content }}
+    </div>
+  </div>
+
+  {{/* Features Section */}}
+  {{ with .Params.features }}
+    {{ partial "components/services/features.html" . }}
+  {{ end }}
+  
+  {{/* "What's Included" Checklist Section */}}
+  {{ with .Params.checklist }}
+    {{ partial "components/services/checklist.html" . }}
+  {{ end }}
+
+  {{/* Testimonials Section */}}
+  {{ partial "content/testimonials.html" . }}
+
+  {{/* Final CTA / Quote Form */}}
+  <section id="quote-form-section" class="service-page-cta">
+    <div class="content-wrapper">
+      <h2 class="service-page-cta__heading">Ready to Secure Your Bond?THIS WORKS!</h2>
+      <p class="service-page-cta__subheading">Get your instant, obligation-free quote now.</p>
+      {{ partial "components/quote-form.html" . }}
+    </div>
+  </section>
+
+{{ end }}
