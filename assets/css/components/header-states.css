@@ -1,0 +1,40 @@
+/* Styles for when the header is scrolled past the "header-trigger" element.
+    The 'is-scrolled-past-trigger' class is added to the <body> tag.
+*/
+
+/* --- Header Appearance --- */
+/* Default state (optional: ensure it's transparent if that's the goal) */
+ .header {
+    background-color: transparent;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+
+/* Scrolled state: Solid background and shadow */
+body.is-scrolled-past-trigger .header {
+    /* Use your site's colour variables if available, e.g., var(--colour-white) */
+    background-color: #ffffff; 
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* --- Logo Visibility Example --- */
+/* As requested: "header_logo only being visible when this element ID is no longer below it"
+    Uncomment the block below to enable this behavior.
+*/
+
+/*
+/* Initially hidden */
+.header .header__logo {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+}
+
+/* Visible when past the trigger */
+body.is-scrolled-past-trigger .header .header__logo {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}

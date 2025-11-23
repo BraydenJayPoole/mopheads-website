@@ -29,16 +29,12 @@
   --palette-secondary-800: #aea087;
   --palette-secondary-900: #958974; /* Darkest */
 
-  /* --- Neutral (Greys) --- */
-  --palette-neutral-100: #f9fafb;
-  --palette-neutral-200: #e0e1e2;
-  --palette-neutral-300: #c7c8c9;
-  --palette-neutral-400: #aeafb0;
-  --palette-neutral-500: #959697;
-  --palette-neutral-600: #7d7d7e;
-  --palette-neutral-700: #646464;
-  --palette-neutral-800: #4b4b4b;
-  --palette-neutral-900: #323232;
+  /* --- Neutral --- */
+  --palette-neutral-100: #fffdfb;
+  --palette-neutral-200: #fffbf5;
+  --palette-neutral-300: #ebd5c1;
+  --palette-neutral-400: #521000;
+  --palette-neutral-470: lab(16.33% 29.58 24.94 / 0.7);
   
   --palette-white: #ffffff;
   --palette-white-rgb: 255, 255, 255;
@@ -75,9 +71,9 @@
   /* --- 1. Text --- */
   /* For titles, paragraphs, captions, labels, etc. */
   
-  --color-text-primary:          var(--palette-neutral-900); /* Main headings and body text */
+  --color-text-primary:          var(--palette-neutral-400); /* Main headings and body text */
 
-  --color-text-secondary:        var(--palette-neutral-700); /* Sub-headings, descriptions, supporting text */
+  --color-text-secondary:        var(--palette-neutral-470); /* Sub-headings, descriptions, supporting text */
 
   --color-text-tertiary:         var(--palette-neutral-600); /* Placeholders, disabled text */
   --color-text-tertiary-hover:   var(--palette-neutral-900);
@@ -113,7 +109,7 @@
   /* --- 3. Stroke --- */
   /* For input borders, dividers, card borders, etc. */
 
-  --color-stroke-primary:   var(--palette-neutral-400); /* Default borders (inputs, cards) */
+  --color-stroke-primary:   var(--palette-neutral-300); /* Default borders (inputs, cards) */
   --color-stroke-secondary: var(--palette-neutral-300); /* Dividers */
   --color-stroke-tertiary:  var(--palette-neutral-200); /* Subtle borders */
   --color-stroke-focus:     var(--palette-primary-500); /* Focus rings on inputs, buttons */
@@ -126,8 +122,8 @@
   /* --- 4. Layer --- */
   /* For page backgrounds, cards, popups, overlays, etc. */
 
-  --color-layer-0:      var(--palette-secondary-100);  /* Base page background */
-  --color-layer-1:      var(--palette-white);        /* Cards, sidebars, "next level up" */
+  --color-layer-0:      var(--palette-neutral-200);  /* Base page background */
+  --color-layer-1:      var(--palette-neutral-100);        /* Cards, sidebars, "next level up" */
   --color-layer-2:      var(--palette-white);        /* Modals, popups, dropdowns */
   --color-layer-overlay: rgba(var(--palette-neutral-900-rgb), 0.4); /* Scrim/backdrop for modals */
 

@@ -1,3 +1,6 @@
+{{ $scrollObserver := resources.Get "js/scroll-observer.js" | resources.Minify | resources.Fingerprint }}
+<script src="{{ $scrollObserver.RelPermalink }}" integrity="{{ $scrollObserver.Data.Integrity }}" defer></script>
+
 {{/*  {{ $preloadJS := resources.Get "js/preload.js" }} <script src="{{ $preloadJS.RelPermalink }}" defer></script>
 
 <script>

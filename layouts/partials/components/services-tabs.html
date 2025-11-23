@@ -1,9 +1,10 @@
 {{/* layouts/partials/components/services-tabs.html */}}
 {{ $categories := sort .Site.Data.services.categories "weight" }}
 <section id="services-tabs-section" class="services-tabs">
-    <div class="main-container">
-        <div class="services-tabs__header">
-            <h2 class="services-tabs__heading">I'm looking for...</h2>
+
+            <div class="services-tabs__header">
+            <h2 class="services-tabs__heading">Services that work for you.</h2>
+            <p>Select a service below to see how we operate.</p>
         </div>
         <div id="tabs-nav" class="tabs-container">
             <div id="active-tab-indicator" class="active-tab-indicator"></div>
@@ -11,6 +12,9 @@
                 <button data-tab="{{ .key }}" class="tab-button">{{ .name }}</button>
             {{ end }}
         </div>
+
+    <div class="main-container">
+
 
         <div class="services-tabs__grid">
             <div class="services-tabs__nav-column">
